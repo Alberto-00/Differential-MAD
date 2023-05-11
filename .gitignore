@@ -1,3 +1,6 @@
 code/venv/*
 code/dataset/*
 code/output/*
+code/.idea
+code/__pycache__
+code/backbones/__pycache__
