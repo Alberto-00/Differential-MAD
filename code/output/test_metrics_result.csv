@@ -1,0 +1,2 @@
+Model,Test name,EER (%),BPCR (0.10%) @ APCR =,BPCR (1.00%) @ APCR =,BPCR (10.00%) @ APCR =,BPCR (20.00%) @ APCR =
+models/mixfacenet_SMDD_amsl.pth,amsl,12.74,100.00,68.78,15.86,7.82
