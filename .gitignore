@@ -1,6 +1,7 @@
 code/venv/*
 code/dataset/*
-code/output/*
+code/output/test_results/*
+code/output/train_info.log
 code/.idea
 code/__pycache__
 code/backbones/__pycache__
