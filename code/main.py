@@ -18,7 +18,7 @@ from torchvision import transforms
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from sklearn.metrics import roc_curve, auc
-from utils import performances_compute, evalute_threshold_based
+from utils import performances_compute, get_bpcer_op
 from backbones import mixnet_s
 
 device = torch.device('cuda:0')
@@ -181,7 +181,6 @@ def run_test(test_loader, model, model_path, batch_size=64):
     model.eval()
 
     prediction_scores, gt_labels = [], []
-    metrics = []
     with torch.no_grad():
         for inputs, labels in tqdm(test_loader):
             inputs, labels= inputs.to(device), labels.to(device)
@@ -195,17 +194,19 @@ def run_test(test_loader, model, model_path, batch_size=64):
         std_value = np.std(prediction_scores)
         mean_value = np.mean(prediction_scores)
         prediction_scores = [(float(i) - mean_value) / (std_value) for i in prediction_scores]
-        # val_auc, eer_value, metrics = performances_compute(prediction_scores, gt_labels, verbose=False)
-        print(performances_compute(prediction_scores, gt_labels, verbose=False))
-        # print(f'Test EER value: {eer_value*100}')
+        _, eer_value, _ = performances_compute(prediction_scores, gt_labels, verbose=False)
+        print(f'Test EER value: {eer_value * 100}')
 
-    _, _, threshold = roc_curve(gt_labels, prediction_scores, pos_label=1, drop_intermediate=False)
-    evalute_threshold_based(prediction_scores, gt_labels, threshold)
+    fpr, tpr, threshold = roc_curve(gt_labels, prediction_scores, pos_label=1, drop_intermediate=False)
+    bpcer = 1 - tpr
 
-    logging.info('BPCR test: {:4f}'.format(metrics[1]))
-    logging.info('APCR test: {:4f}'.format(metrics[2]))
-    logging.info('ACER test: {:4f}'.format(metrics[3]))
-    return prediction_scores
+    _, test_apcer_01, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.0001)
+    _, test_apcer_1, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.01)
+    _, test_apcer_10, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.10)
+    _, test_apcer_20, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.20)
+
+    return prediction_scores, [(eer_value * 100), (test_apcer_01 * 100), (test_apcer_1 * 100),
+                               (test_apcer_10 * 100), (test_apcer_20 * 100)]
 
 
 def write_scores(test_csv, prediction_scores, output_path):
@@ -225,6 +226,23 @@ def write_scores(test_csv, prediction_scores, output_path):
             writer.writerow(data)
 
     print(f'Saving prediction scores in {output_path}.')
+
+
+def write_metrics(test_csv_path, model, model_name, test_metrics):
+    # check if file.csv exist
+    if not os.path.isfile(test_csv_path):
+        with open(test_csv_path, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Model", "Test name", "EER (%)", "BPCR (0.10%) @ APCR =", "BPCR (1.00%) @ APCR =",
+                             "BPCR (10.00%) @ APCR =", "BPCR (20.00%) @ APCR ="])
+
+    # add data row to the file
+    with open(test_csv_path, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([model, model_name, "%.2f" % test_metrics[0], "%.2f" % test_metrics[1],
+                         "%.2f" % test_metrics[2], "%.2f" % test_metrics[3], "%.2f" % test_metrics[4]])
+
+    print(f'Saving metrics scores in {test_csv_path}.')
 
 
 def main(args):
@@ -273,8 +291,9 @@ def main(args):
         # test
         test_dataset = FaceDataset(file_name=args.test_csv_path, is_train=False)
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
-        test_prediction_scores = run_test(test_loader=test_loader, model=model, model_path=args.model_path)
+        test_prediction_scores, test_metrics = run_test(test_loader=test_loader, model=model, model_path=args.model_path)
         write_scores(args.test_csv_path, test_prediction_scores, test_output_path)
+        write_metrics("output/test_metrics_result.csv", args.model_path, "stylegan", test_metrics)
 
 
 if __name__ == '__main__':
@@ -289,12 +308,12 @@ if __name__ == '__main__':
         torch.manual_seed(0)
 
     import argparse
-    parser = argparse.ArgumentParser(description='MixFaceNet model')
+    parser = argparse.ArgumentParser(description='MixFaceNet models')
     parser.add_argument("--train_csv_path", default="dataset/SMDD_train/train.csv", type=str, help="input path of train csv")
-    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/test_morph_opencv.csv", type=str, help="input path of test csv")
+    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/test_morph_stylegan.csv", type=str, help="input path of test csv")
 
     parser.add_argument("--output_dir", default="output", type=str, help="path where trained model and test results will be saved")
-    parser.add_argument("--model_path", default="dataset/model/mixfacenet_SMDD.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
+    parser.add_argument("--model_path", default="models/mixfacenet_SMDD_webmorph.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
 
     parser.add_argument("--is_train", default=True, type=lambda x: (str(x).lower() in ['true','1', 'yes']), help="train database or not")
     parser.add_argument("--is_test", default=True, type=lambda x: (str(x).lower() in ['true','1', 'yes']), help="test database or not")
