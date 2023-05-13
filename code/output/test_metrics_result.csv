@@ -1,2 +1,6 @@
 Model,Test name,EER (%),BPCR (0.10%) @ APCR =,BPCR (1.00%) @ APCR =,BPCR (10.00%) @ APCR =,BPCR (20.00%) @ APCR =
 models/mixfacenet_SMDD_amsl.pth,amsl,12.74,100.00,68.78,15.86,7.82
+models/mixfacenet_SMDD_facemorpher.pth,facemorpher,0.49,100.00,0.49,0.16,0.16
+models/mixfacenet_SMDD_opencv.pth,opencv,0.57,100.00,0.57,0.57,0.57
+models/mixfacenet_SMDD_stylegan.pth,stylegan,9.82,100.00,41.73,9.98,5.16
+models/mixfacenet_SMDD_webmorph.pth,webmorph,7.53,100.00,43.90,6.96,4.59
