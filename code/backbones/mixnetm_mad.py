@@ -13,6 +13,7 @@ from backbones.activation import get_activation_layer, HSwish, Swish
 from backbones.common import dwconv3x3_block, SEBlock
 from backbones.utils import conv1x1, round_channels, _calc_width, ConvBlock, conv3x3_block, dwconv_block, conv1x1_block, \
     DwsConvBlock, channel_shuffle2, count_model_flops
+from torchvision.models.feature_extraction import create_feature_extractor
 
 class MixConv(nn.Module):
     """
@@ -576,9 +577,8 @@ def _test():
     ]
 
     for model in models:
-
         net = model(embedding_size=512,width_scale=1.0,gdw_size=1024)
-        print(net)
+        '''print(net)
         weight_count = _calc_width(net)
         flops=count_model_flops(net)
         print("m={}, {}".format(model.__name__, weight_count))
@@ -589,7 +589,18 @@ def _test():
 
         y = net(x)
         y.sum().backward()
-        assert (tuple(y.size()) == (1, 512))
+        assert (tuple(y.size()) == (1, 512))'''
+        child_counter = 0
+        new_model = nn.Sequential(*list(net.features.children())[:-1])
+        # Stampa delle features
+        for idx, module in enumerate(new_model):
+            print(f"Layer {idx}: {module}")
+
+        '''for child in net.features.children():
+            print(" child", child_counter, "is:")
+            print(child)
+            child_counter += 1
+            # create_feature_extractor(net, child)'''
 
 
 if __name__ == "__main__":
