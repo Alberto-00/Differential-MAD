@@ -566,8 +566,6 @@ def mixnet_l(embedding_size=512,width_scale=1.3,shuffle=True,**kwargs):
     return get_mixnet(version="m", width_scale=width_scale,embedding_size=embedding_size, model_name="mixnet_l",shuffle=shuffle, **kwargs)
 
 
-
-
 def _test():
     import torch
 

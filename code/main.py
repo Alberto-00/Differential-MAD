@@ -17,7 +17,7 @@ import torchvision
 from torchvision import transforms
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_curve, auc, confusion_matrix
 from utils import performances_compute, get_bpcer_op
 from backbones import mixnet_s
 
@@ -107,7 +107,7 @@ def eval_fn(model, data_loader, data_size, criterion):
             inputs, labels = inputs.to(device), labels.to(device)
 
             outputs = model(inputs)
-            loss= criterion(outputs, labels)
+            loss = criterion(outputs, labels)
 
             _, preds = torch.max(outputs, 1)
 
@@ -209,6 +209,29 @@ def run_test(test_loader, model, model_path, batch_size=64):
                                (test_apcer_10 * 100), (test_apcer_20 * 100)]
 
 
+def confusion_matrix_(test_csv, prediction_scores):
+    dataframe = pd.read_csv(test_csv)
+    y_true, y_pred = [], []
+    for idx in range(len(dataframe)):
+        label = dataframe.iloc[idx, 1]
+        label = label.replace(' ', '')
+
+        if label == 'bonafide':
+            y_true.append(1)
+        else:
+            y_true.append(0)
+
+    for pred in prediction_scores:
+        if pred >= 0.5:
+            y_pred.append(1)
+
+        elif pred < 0.5:
+            y_pred.append(0)
+
+    cm = confusion_matrix(y_true, y_pred)
+    print(cm)
+
+
 def write_scores(test_csv, prediction_scores, output_path):
     save_data = []
     dataframe = pd.read_csv(test_csv)
@@ -216,7 +239,7 @@ def write_scores(test_csv, prediction_scores, output_path):
         image_path = dataframe.iloc[idx, 0]
         label = dataframe.iloc[idx, 1]
         label = label.replace(' ', '')
-        save_data.append({'image_path': image_path, 'label':label, 'prediction_score': prediction_scores[idx]})
+        save_data.append({'image_path': image_path, 'label': label, 'prediction_score': prediction_scores[idx]})
 
     with open(output_path, mode='w') as csv_file:
         fieldnames = ['image_path', 'label', 'prediction_score']
@@ -233,8 +256,8 @@ def write_metrics(test_csv_path, model, model_name, test_metrics):
     if not os.path.isfile(test_csv_path):
         with open(test_csv_path, 'w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(["Model", "Test name", "EER (%)", "BPCR (0.10%) @ APCR =", "BPCR (1.00%) @ APCR =",
-                             "BPCR (10.00%) @ APCR =", "BPCR (20.00%) @ APCR ="])
+            writer.writerow(["Model", "Test name", "EER (%)", "BPCR (0.10%) @ APCR =",
+                             "BPCR (1.00%) @ APCR =", "BPCR (10.00%) @ APCR =", "BPCR (20.00%) @ APCR ="])
 
     # add data row to the file
     with open(test_csv_path, 'a', newline='') as file:
@@ -294,6 +317,7 @@ def main(args):
         test_prediction_scores, test_metrics = run_test(test_loader=test_loader, model=model, model_path=args.model_path)
         write_scores(args.test_csv_path, test_prediction_scores, test_output_path)
         write_metrics("output/test_metrics_result.csv", args.model_path, "stylegan", test_metrics)
+        confusion_matrix_(args.test_csv_path, test_prediction_scores)
 
 
 if __name__ == '__main__':
@@ -310,10 +334,10 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='MixFaceNet models')
     parser.add_argument("--train_csv_path", default="dataset/SMDD_train/train.csv", type=str, help="input path of train csv")
-    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/test_morph_stylegan.csv", type=str, help="input path of test csv")
+    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/test_morph_amsl.csv", type=str, help="input path of test csv")
 
     parser.add_argument("--output_dir", default="output", type=str, help="path where trained model and test results will be saved")
-    parser.add_argument("--model_path", default="models/mixfacenet_SMDD_webmorph.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
+    parser.add_argument("--model_path", default="models/mixfacenet_SMDD_amsl.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
 
     parser.add_argument("--is_train", default=True, type=lambda x: (str(x).lower() in ['true','1', 'yes']), help="train database or not")
     parser.add_argument("--is_test", default=True, type=lambda x: (str(x).lower() in ['true','1', 'yes']), help="test database or not")
