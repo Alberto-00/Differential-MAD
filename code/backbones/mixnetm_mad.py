@@ -8,12 +8,15 @@ import torch.nn.init as init
 import math
 import torch
 import torch.nn as nn
-
+from torchvision.models.feature_extraction import get_graph_node_names
+from torchvision.models.feature_extraction import create_feature_extractor
+from torchvision.models.detection.mask_rcnn import MaskRCNN
+from torchvision.models.detection.backbone_utils import LastLevelMaxPool
+from torchvision.ops.feature_pyramid_network import FeaturePyramidNetwork
 from backbones.activation import get_activation_layer, HSwish, Swish
 from backbones.common import dwconv3x3_block, SEBlock
 from backbones.utils import conv1x1, round_channels, _calc_width, ConvBlock, conv3x3_block, dwconv_block, conv1x1_block, \
     DwsConvBlock, channel_shuffle2, count_model_flops
-from torchvision.models.feature_extraction import create_feature_extractor
 
 class MixConv(nn.Module):
     """
@@ -452,7 +455,7 @@ class MixNet(nn.Module):
         x = self.features(x)
         x=self.tail(x)
         x=self.feautre_layer(x)
-
+        print(x.size())
         # adding the following classification layer for morph attack detection
         x = self.pool1(x)
         x = x.view(x.size(0), -1)
@@ -567,6 +570,8 @@ def mixnet_l(embedding_size=512,width_scale=1.3,shuffle=True,**kwargs):
     return get_mixnet(version="m", width_scale=width_scale,embedding_size=embedding_size, model_name="mixnet_l",shuffle=shuffle, **kwargs)
 
 
+
+
 def _test():
     import torch
 
@@ -577,30 +582,30 @@ def _test():
     ]
 
     for model in models:
-        net = model(embedding_size=512,width_scale=1.0,gdw_size=1024)
-        '''print(net)
+
+        net = model(embedding_size=512, width_scale=1.0, gdw_size=1024)
+        # print(net)
         weight_count = _calc_width(net)
         flops=count_model_flops(net)
-        print("m={}, {}".format(model.__name__, weight_count))
-        print("m={}, {}".format(model.__name__, flops))
+        # print("m={}, {}".format(model.__name__, weight_count))
+        # print("m={}, {}".format(model.__name__, flops))
         net.eval()
+        # create_feature_extractor(net, net.features)
 
+        child_counter = 0
+        for child in net.features.children():
+            print(child)
+
+        # print(net.features_norm)
+        # print(net.feautre_layer)
         x = torch.randn(1, 3, 112, 112)
-
+        #print(net.feautre_layer)
+        #print(net.features_norm)
+        #print(net.features)
+        net.forward(x)
         y = net(x)
         y.sum().backward()
-        assert (tuple(y.size()) == (1, 512))'''
-        child_counter = 0
-        new_model = nn.Sequential(*list(net.features.children())[:-1])
-        # Stampa delle features
-        for idx, module in enumerate(new_model):
-            print(f"Layer {idx}: {module}")
-
-        '''for child in net.features.children():
-            print(" child", child_counter, "is:")
-            print(child)
-            child_counter += 1
-            # create_feature_extractor(net, child)'''
+        # assert (tuple(y.size()) == (1, 512))
 
 
 if __name__ == "__main__":
