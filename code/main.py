@@ -251,16 +251,19 @@ def feature_extraction(model, model_path, path_dataset_csv):
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
-    with open(path_dataset_csv, 'r+') as file:
+    path_feature_out_csv = 'output/feature_extraction/' + path_dataset_csv.split('/')[2]
+    header = ['image_path', 'label']
+
+    with open(path_feature_out_csv, 'w', newline='') as features_csv:
+        writer = csv.writer(features_csv)
+        writer.writerow(header)
+
+    with open(path_dataset_csv, 'r') as file:
         reader = csv.reader(file)
-        rows = list(reader)
+        rows_origin = list(reader)
 
-        # Nuova intestazione
-        # header = rows[0]
-        # header.append('Nuova Colonna')
-
-        for row in rows[1:]:
-            path_image = row[0]
+        for row_origin in rows_origin[1:]:
+            path_image = row_origin[0]
             input_data = Image.open(path_image)
 
             # Apply the transformation to your input data
@@ -273,37 +276,22 @@ def feature_extraction(model, model_path, path_dataset_csv):
             with torch.no_grad():
                 features = model(input_data)
 
-            #print(features)
+            data_row = [path_image, row_origin[1]]
             for feature in features:
                 prova = feature.numpy()
+
                 for elem in prova.flatten():
-                    print(elem)
-                    write_feature_csv(path_dataset_csv, row, elem, rows)
+                    data_row.append(elem)
 
-            '''for feature in features:
-                #print(feature[0, 0])
-                #write_feature_csv(path_dataset_csv, row, feature.numpy(), rows)
-
-                for f in feature:
-                    print(f[0])
-                    #write_feature_csv(path_dataset_csv, row, f.numpy(), rows)
-                break
-            break
-                #write_feature_csv(path_dataset_csv, row, feature, rows)'''
-
-
-def write_feature_csv(path_dataset_csv, row, feature, rows):
-    row.append(feature)
-
-    # Scrivi i dati aggiornati nel file CSV di output
-    with open(path_dataset_csv, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerows(rows)
+            with open(path_feature_out_csv, 'a', newline='') as features_csv:
+                writer = csv.writer(features_csv)
+                writer.writerow(data_row)
 
 
 def write_scores(test_csv, prediction_scores, output_path):
     save_data = []
     dataframe = pd.read_csv(test_csv)
+
     for idx in range(len(dataframe)):
         image_path = dataframe.iloc[idx, 0]
         label = dataframe.iloc[idx, 1]
@@ -389,7 +377,7 @@ def main(args):
         write_metrics("output/test_metrics_result.csv", args.model_path, "stylegan", test_metrics)
         confusion_matrix_(args.test_csv_path, test_prediction_scores)
 
-    path_extract_feature_csv = 'output/feature_extraction/test_morph_amsl.csv'
+    path_extract_feature_csv = 'dataset/FRLL_test/test_morph_amsl.csv'
     feature_extraction(model, args.model_path, path_extract_feature_csv)
 
 
