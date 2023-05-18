@@ -455,7 +455,7 @@ class MixNet(nn.Module):
         x = self.features(x)
         x=self.tail(x)
         x=self.feautre_layer(x)
-        print(x.size())
+        print(x)
         # adding the following classification layer for morph attack detection
         x = self.pool1(x)
         x = x.view(x.size(0), -1)
@@ -593,8 +593,8 @@ def _test():
         # create_feature_extractor(net, net.features)
 
         child_counter = 0
-        for child in net.features.children():
-            print(child)
+        '''for child in net.features.children():
+            print(child)'''
 
         # print(net.features_norm)
         # print(net.feautre_layer)
