@@ -5,8 +5,10 @@ import pandas as pd
 import numpy as np
 import csv
 import logging
+
 from tqdm import tqdm
 from pathlib import Path
+from PIL import Image
 
 import torch
 import torch.nn as nn
@@ -17,7 +19,7 @@ import torchvision
 from torchvision import transforms
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
-from sklearn.metrics import roc_curve, auc, confusion_matrix
+from sklearn.metrics import roc_curve, confusion_matrix
 from utils import performances_compute, get_bpcer_op
 from backbones import mixnet_s
 
@@ -232,6 +234,73 @@ def confusion_matrix_(test_csv, prediction_scores):
     print(cm)
 
 
+def feature_extraction(model, model_path, path_dataset_csv):
+    # Load the pre-trained weights
+    model.load_state_dict(torch.load(model_path))
+
+    # Set the model to evaluation mode
+    model.eval()
+
+    # Remove the final classification layer
+    model = nn.Sequential(*list(model.children())[:-1])
+
+    # Define the transformation to be applied to your input data
+    transform = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+
+    with open(path_dataset_csv, 'r+') as file:
+        reader = csv.reader(file)
+        rows = list(reader)
+
+        # Nuova intestazione
+        # header = rows[0]
+        # header.append('Nuova Colonna')
+
+        for row in rows[1:]:
+            path_image = row[0]
+            input_data = Image.open(path_image)
+
+            # Apply the transformation to your input data
+            input_data = transform(input_data)
+
+            # Add a batch dimension to the input data
+            input_data = input_data.unsqueeze(0)
+
+            # Pass the input data through your model to extract features
+            with torch.no_grad():
+                features = model(input_data)
+
+            #print(features)
+            for feature in features:
+                prova = feature.numpy()
+                for elem in prova.flatten():
+                    print(elem)
+                    write_feature_csv(path_dataset_csv, row, elem, rows)
+
+            '''for feature in features:
+                #print(feature[0, 0])
+                #write_feature_csv(path_dataset_csv, row, feature.numpy(), rows)
+
+                for f in feature:
+                    print(f[0])
+                    #write_feature_csv(path_dataset_csv, row, f.numpy(), rows)
+                break
+            break
+                #write_feature_csv(path_dataset_csv, row, feature, rows)'''
+
+
+def write_feature_csv(path_dataset_csv, row, feature, rows):
+    row.append(feature)
+
+    # Scrivi i dati aggiornati nel file CSV di output
+    with open(path_dataset_csv, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(rows)
+
+
 def write_scores(test_csv, prediction_scores, output_path):
     save_data = []
     dataframe = pd.read_csv(test_csv)
@@ -276,6 +345,7 @@ def main(args):
 
     # set 'args.is_train' to FALSE to skip training
     args.is_train = False
+    args.is_test = False
 
     if args.is_train:
         train_dataset = FaceDataset(args.train_csv_path, is_train=True)
@@ -318,6 +388,9 @@ def main(args):
         write_scores(args.test_csv_path, test_prediction_scores, test_output_path)
         write_metrics("output/test_metrics_result.csv", args.model_path, "stylegan", test_metrics)
         confusion_matrix_(args.test_csv_path, test_prediction_scores)
+
+    path_extract_feature_csv = 'output/feature_extraction/test_morph_amsl.csv'
+    feature_extraction(model, args.model_path, path_extract_feature_csv)
 
 
 if __name__ == '__main__':
