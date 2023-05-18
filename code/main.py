@@ -374,10 +374,11 @@ def main(args):
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
         test_prediction_scores, test_metrics = run_test(test_loader=test_loader, model=model, model_path=args.model_path)
         write_scores(args.test_csv_path, test_prediction_scores, test_output_path)
-        write_metrics("output/test_metrics_result.csv", args.model_path, "stylegan", test_metrics)
+        write_metrics("output/test_metrics_result.csv", args.model_path, "amsl", test_metrics)
+
         confusion_matrix_(args.test_csv_path, test_prediction_scores)
 
-    path_extract_feature_csv = 'dataset/FRLL_test/test_morph_amsl.csv'
+    path_extract_feature_csv = 'dataset/FRLL_test/test_morph_webmorph.csv'
     feature_extraction(model, args.model_path, path_extract_feature_csv)
 
 
