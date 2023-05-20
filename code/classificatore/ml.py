@@ -24,6 +24,7 @@ import os
 from sklearn.metrics import DetCurveDisplay, RocCurveDisplay
 from sklearn.metrics import roc_curve, det_curve, auc
 
+
 def get_apcer_op(apcer, bpcer, threshold, op):
     """Returns the value of the given FMR operating point
     Definition:
@@ -40,6 +41,7 @@ def get_apcer_op(apcer, bpcer, threshold, op):
     """
     index = np.argmin(abs(apcer - op))
     return index, bpcer[index], threshold[index]
+
 
 def get_bpcer_op(apcer, bpcer, threshold, op):
     """Returns the value of the given FNMR operating point
@@ -61,12 +63,14 @@ def get_bpcer_op(apcer, bpcer, threshold, op):
 
     return index, apcer[index], threshold[index]
 
+
 def get_eer_threhold(fpr, tpr, threshold):
-    differ_tpr_fpr_1=tpr+fpr-1.0
+    differ_tpr_fpr_1 = tpr + fpr - 1.0
     index = np.nanargmin(np.abs(differ_tpr_fpr_1))
     eer = fpr[index]
 
     return eer, index, threshold[index]
+
 
 def performances_compute(prediction_scores, gt_labels, threshold_type, op_val, verbose):
     # fpr = apcer, 1-tpr = bpcer
@@ -79,11 +83,11 @@ def performances_compute(prediction_scores, gt_labels, threshold_type, op_val, v
     val_eer, _, eer_threshold = get_eer_threhold(fpr, tpr, threshold)
     val_auc = auc(fpr, tpr)
 
-    if threshold_type=='eer':
+    if threshold_type == 'eer':
         threshold = eer_threshold
-    elif threshold_type=='apcer':
+    elif threshold_type == 'apcer':
         _, _, threshold = get_apcer_op(fpr, bpcer, threshold, op_val)
-    elif threshold_type=='bpcer':
+    elif threshold_type == 'bpcer':
         _, _, threshold = get_bpcer_op(fpr, bpcer, threshold, op_val)
     else:
         threshold = 0.5
@@ -99,7 +103,8 @@ def performances_compute(prediction_scores, gt_labels, threshold_type, op_val, v
     threshold_ACER = (threshold_APCER + threshold_BPCER) / 2.0
 
     if verbose is True:
-        print(f'AUC@ROC: {val_auc}, threshold:{threshold}, EER: {val_eer}, APCER:{threshold_APCER}, BPCER:{threshold_BPCER}, ACER:{threshold_ACER}')
+        print(
+            f'AUC@ROC: {val_auc}, threshold:{threshold}, EER: {val_eer}, APCER:{threshold_APCER}, BPCER:{threshold_BPCER}, ACER:{threshold_ACER}')
 
     return val_auc, val_eer, [threshold, threshold_APCER, threshold_BPCER, threshold_ACER]
 
@@ -120,20 +125,20 @@ def compute_eer(label, pred):
     eer = (eer_1 + eer_2) / 2
     return eer
 
-train = pd.read_csv('../output/train.csv')
+
+train = pd.read_csv('../output/feature_extraction/model_amsl/train/train.csv')
 
 x = train.drop(['image_path', "label"], axis=1)
-
-print(train['label'])
 y = []
+
 for elem in train['label']:
     if elem == 'bonafide':
         y.append(1)
     elif elem == 'attack':
         y.append(0)
 
-mappa_valori = {0: 1, 1: 0} # Sostituzione dei valori 
-y = y.replace(mappa_valori)
+mappa_valori = {0: 1, 1: 0}  # Sostituzione dei valori
+y = [mappa_valori[val] for val in y]
 # scaler = MinMaxScaler()
 # scaler.fit(x)
 # train_scaled = scaler.transform(x)
@@ -147,23 +152,26 @@ model = GaussianNB()
 # select the svm algorithm
 model.fit(X_train_sel, y)
 
-
-directory = '../output/feature_extraction'
+directory = '../output/feature_extraction/model_amsl'
 for filename in os.listdir(directory):
     if filename.endswith(".csv"):
-
-
-        test = pd.read_csv(directory+'/'+filename)
+        test = pd.read_csv(directory + '/' + filename)
 
         x_test = test.drop(['image_path', "label"], axis=1)
-        y_test = test["label"]
-        mappa_valori = {0: 1, 1: 0} # Sostituzione dei valori 
-        y_test = y_test.replace(mappa_valori)
+        y_test = []
+        for elem in test["label"]:
+            if elem == 'bonafide':
+                y.append(1)
+            elif elem == 'attack':
+                y.append(0)
 
-        #test_scaled  = scaler.transform(x_test)
+        mappa_valori = {0: 1, 1: 0}  # Sostituzione dei valori
+        y_test = [mappa_valori[val] for val in y_test]
+
+        # test_scaled  = scaler.transform(x_test)
         X_test_sel = sel.transform(x_test)
         prediction = model.predict(X_test_sel)
-        #prediction = grid_search.predict(x_test)
+        # prediction = grid_search.predict(x_test)
         print(filename)
         print('The accuracy is: ', accuracy_score(prediction, y_test))
 
@@ -174,22 +182,20 @@ for filename in os.listdir(directory):
         print(classification_report(y_test, prediction))
 
         print("EER: ", compute_eer(y_test, prediction))
-        z=confusion_matrix(y_test, prediction)
+        z = confusion_matrix(y_test, prediction)
 
         apcer = z[0][1] / (z[0][0] + z[0][1])
         bpcer = z[1][0] / (z[1][0] + z[1][1])
         eer = (apcer + bpcer) / 2
-           
+
         print("APCER: ", '{:.2%}'.format(apcer))
         print("BPCER: ", '{:.2%}'.format(bpcer))
         print("EER FAKE: ", '{:.2%}'.format(eer))
 
-       
-# Calcolare l'APCER e il BPCER per ogni punto di lavoro
+        # Calcolare l'APCER e il BPCER per ogni punto di lavoro
         decision_scores = model.predict_proba(X_test_sel)[:, 1]
-        #y_pred_morphed = decision_scores[:, 0]
+        # y_pred_morphed = decision_scores[:, 0]
         performances_compute(decision_scores, y_test, "apcer", 0.2, True)
-
 
 """tuned_parametersSGD= [{'loss': ['hinge'], 'penalty': ['l1','l2'], 'alpha':[0.0005, 0.001, 0.002, 0.003,0.0001], 'tol':[ 1e-4, 1e-3, 1e-2],'n_jobs':[-1], 'max_iter': [1000000000],   'random_state':[42]},
                      {'loss': ['log'], 'penalty': ['l1','l2'], 'alpha': [0.0005, 0.001, 0.002, 0.003, 0.0001], 'tol':[  1e-4,1e-3, 1e-2], 'n_jobs': [-1], 'max_iter': [1000000000], 'random_state':[42]},
@@ -205,7 +211,6 @@ print(grid_search.best_estimator_)
 print(grid_search.best_params_)
 print(grid_search.refit_time_)
 """
-
 
 """def calculate_bpcer_apcer(genuine_scores, impostor_scores, threshold, apcer_target):
     # Calculate the BPCER and APCER
@@ -225,14 +230,12 @@ print(grid_search.refit_time_)
     return bpcer, apcer, bpcer_apcer
 """
 
-
-#train = train.reset_index(drop=True)
-#test = test.reset_index(drop=True)
-
+# train = train.reset_index(drop=True)
+# test = test.reset_index(drop=True)
 
 
-#print(len(y[y==1]))
-#print(len(y[y==0]))
+# print(len(y[y==1]))
+# print(len(y[y==0]))
 
 """
 classifiers = [

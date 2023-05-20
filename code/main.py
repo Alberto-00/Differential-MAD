@@ -374,12 +374,11 @@ def main(args):
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
         test_prediction_scores, test_metrics = run_test(test_loader=test_loader, model=model, model_path=args.model_path)
         write_scores(args.test_csv_path, test_prediction_scores, test_output_path)
-        write_metrics("output/test_metrics_result.csv", args.model_path, "amsl", test_metrics)
+        write_metrics("output/test_metrics_result.csv", args.model_path, "webmorph", test_metrics)
 
         confusion_matrix_(args.test_csv_path, test_prediction_scores)
 
-    path_extract_feature_csv = 'dataset/FRLL_test/test_morph_webmorph.csv'
-    feature_extraction(model, args.model_path, path_extract_feature_csv)
+    feature_extraction(model, args.model_path, args.train_csv_path)
 
 
 if __name__ == '__main__':
@@ -396,13 +395,13 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='MixFaceNet models')
     parser.add_argument("--train_csv_path", default="dataset/SMDD_train/train.csv", type=str, help="input path of train csv")
-    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/test_morph_amsl.csv", type=str, help="input path of test csv")
+    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/test_morph_webmorph.csv", type=str, help="input path of test csv")
 
     parser.add_argument("--output_dir", default="output", type=str, help="path where trained model and test results will be saved")
-    parser.add_argument("--model_path", default="models/mixfacenet_SMDD_amsl.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
+    parser.add_argument("--model_path", default="models/mixfacenet_SMDD_no_shuffle.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
 
-    parser.add_argument("--is_train", default=True, type=lambda x: (str(x).lower() in ['true','1', 'yes']), help="train database or not")
-    parser.add_argument("--is_test", default=True, type=lambda x: (str(x).lower() in ['true','1', 'yes']), help="test database or not")
+    parser.add_argument("--is_train", default=True, type=lambda x: (str(x).lower() in ['true', '1', 'yes']), help="train database or not")
+    parser.add_argument("--is_test", default=True, type=lambda x: (str(x).lower() in ['true', '1', 'yes']), help="test database or not")
 
     parser.add_argument("--max_epoch", default=100, type=int, help="maximum epochs")
     parser.add_argument("--batch_size", default=32, type=int, help="train batch size")
