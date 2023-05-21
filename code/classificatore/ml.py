@@ -20,6 +20,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_selection import VarianceThreshold
 import sklearn
 import os
+import logging
 
 from sklearn.metrics import DetCurveDisplay, RocCurveDisplay
 from sklearn.metrics import roc_curve, det_curve, auc
@@ -103,6 +104,8 @@ def performances_compute(prediction_scores, gt_labels, threshold_type, op_val, v
     threshold_ACER = (threshold_APCER + threshold_BPCER) / 2.0
 
     if verbose is True:
+        logging.info(
+            f'AUC@ROC: {val_auc}, threshold:{threshold}, EER: {val_eer}, APCER:{threshold_APCER}, BPCER:{threshold_BPCER}, ACER:{threshold_ACER}')
         print(
             f'AUC@ROC: {val_auc}, threshold:{threshold}, EER: {val_eer}, APCER:{threshold_APCER}, BPCER:{threshold_BPCER}, ACER:{threshold_ACER}')
 
@@ -126,11 +129,10 @@ def compute_eer(label, pred):
     return eer
 
 
-train = pd.read_csv('../output/feature_extraction/model_amsl/train/train.csv')
+train = pd.read_csv('../output/feature_extraction/model_webmorph/train/train.csv')
 
 x = train.drop(['image_path', "label"], axis=1)
 y = []
-
 for elem in train['label']:
     if elem == 'bonafide':
         y.append(1)
@@ -148,11 +150,10 @@ sel = VarianceThreshold(threshold=0.017)
 X_train_sel = sel.fit_transform(x)
 
 model = GaussianNB()
-
 # select the svm algorithm
 model.fit(X_train_sel, y)
 
-directory = '../output/feature_extraction/model_amsl'
+directory = '../output/feature_extraction/model_webmorph/test'
 for filename in os.listdir(directory):
     if filename.endswith(".csv"):
         test = pd.read_csv(directory + '/' + filename)
@@ -161,9 +162,9 @@ for filename in os.listdir(directory):
         y_test = []
         for elem in test["label"]:
             if elem == 'bonafide':
-                y.append(1)
+                y_test.append(1)
             elif elem == 'attack':
-                y.append(0)
+                y_test.append(0)
 
         mappa_valori = {0: 1, 1: 0}  # Sostituzione dei valori
         y_test = [mappa_valori[val] for val in y_test]
@@ -172,15 +173,24 @@ for filename in os.listdir(directory):
         X_test_sel = sel.transform(x_test)
         prediction = model.predict(X_test_sel)
         # prediction = grid_search.predict(x_test)
-        print(filename)
+
+        logging.basicConfig(filename='../output/classificator/webmorph/info_webmorph.log', level=logging.INFO)
+        logging.info(directory.split('/')[3] + '/' + filename)
+        logging.info('The accuracy is: {:.2%}'.format(accuracy_score(prediction, y_test)))
+        print(directory.split('/')[3] + '/' + filename)
         print('The accuracy is: ', accuracy_score(prediction, y_test))
 
-        print("Confusion Matrix: ")
+        logging.info("Confusion Matrix:")
+        logging.info(confusion_matrix(y_test, prediction))
+        print("\nConfusion Matrix: ")
         print(confusion_matrix(y_test, prediction))
 
-        print("Classifiction Report: ")
+        logging.info("Classifiction Report: ")
+        logging.info(classification_report(y_test, prediction))
+        print("\nClassifiction Report: ")
         print(classification_report(y_test, prediction))
 
+        logging.info("EER: {:.2%}".format(compute_eer(y_test, prediction)))
         print("EER: ", compute_eer(y_test, prediction))
         z = confusion_matrix(y_test, prediction)
 
@@ -188,6 +198,9 @@ for filename in os.listdir(directory):
         bpcer = z[1][0] / (z[1][0] + z[1][1])
         eer = (apcer + bpcer) / 2
 
+        logging.info("APCER: {:.2%}".format(apcer))
+        logging.info("BPCER: {:.2%}".format(bpcer))
+        logging.info("EER FAKE: {:.2%}".format(eer))
         print("APCER: ", '{:.2%}'.format(apcer))
         print("BPCER: ", '{:.2%}'.format(bpcer))
         print("EER FAKE: ", '{:.2%}'.format(eer))
@@ -196,6 +209,9 @@ for filename in os.listdir(directory):
         decision_scores = model.predict_proba(X_test_sel)[:, 1]
         # y_pred_morphed = decision_scores[:, 0]
         performances_compute(decision_scores, y_test, "apcer", 0.2, True)
+
+        logging.info('\n\n')
+        print('\n\n')
 
 """tuned_parametersSGD= [{'loss': ['hinge'], 'penalty': ['l1','l2'], 'alpha':[0.0005, 0.001, 0.002, 0.003,0.0001], 'tol':[ 1e-4, 1e-3, 1e-2],'n_jobs':[-1], 'max_iter': [1000000000],   'random_state':[42]},
                      {'loss': ['log'], 'penalty': ['l1','l2'], 'alpha': [0.0005, 0.001, 0.002, 0.003, 0.0001], 'tol':[  1e-4,1e-3, 1e-2], 'n_jobs': [-1], 'max_iter': [1000000000], 'random_state':[42]},

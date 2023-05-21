@@ -1,0 +1,115 @@
+INFO:root:model_amsl/test_morph_amsl.csv
+INFO:root:The accuracy is: 33.21%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 200    4]
+ [1585  590]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.11      0.98      0.20       204
+           1       0.99      0.27      0.43      2175
+
+    accuracy                           0.33      2379
+   macro avg       0.55      0.63      0.31      2379
+weighted avg       0.92      0.33      0.41      2379
+
+INFO:root:EER: 37.42%
+INFO:root:APCER: 1.96%
+INFO:root:BPCER: 72.87%
+INFO:root:EER FAKE: 37.42%
+INFO:root:AUC@ROC: 0.8351679062429569, threshold:1.486471092009509e-268, EER: 0.22058823529411764, APCER:0.19607843137254902, BPCER:0.22528735632183908, ACER:0.21068289384719405
+INFO:root:
+
+
+INFO:root:model_amsl/test_morph_webmorph.csv
+INFO:root:The accuracy is: 43.72%
+INFO:root:Confusion Matrix:
+INFO:root:[[200   4]
+ [798 423]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.20      0.98      0.33       204
+           1       0.99      0.35      0.51      1221
+
+    accuracy                           0.44      1425
+   macro avg       0.60      0.66      0.42      1425
+weighted avg       0.88      0.44      0.49      1425
+
+INFO:root:EER: 33.66%
+INFO:root:APCER: 1.96%
+INFO:root:BPCER: 65.36%
+INFO:root:EER FAKE: 33.66%
+INFO:root:AUC@ROC: 0.8866928425751955, threshold:1.486471092009509e-268, EER: 0.1568627450980392, APCER:0.19607843137254902, BPCER:0.13841113841113842, ACER:0.16724478489184372
+INFO:root:
+
+
+INFO:root:model_amsl/test_morph_opencv.csv
+INFO:root:The accuracy is: 98.19%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 200    4]
+ [  22 1207]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.90      0.98      0.94       204
+           1       1.00      0.98      0.99      1229
+
+    accuracy                           0.98      1433
+   macro avg       0.95      0.98      0.96      1433
+weighted avg       0.98      0.98      0.98      1433
+
+INFO:root:EER: 1.88%
+INFO:root:APCER: 1.96%
+INFO:root:BPCER: 1.79%
+INFO:root:EER FAKE: 1.88%
+INFO:root:AUC@ROC: 0.98702117136521, threshold:1.486471092009509e-268, EER: 0.0196078431372549, APCER:0.19607843137254902, BPCER:0.0040683482506102524, ACER:0.10007338981157964
+INFO:root:
+
+
+INFO:root:model_amsl/test_morph_facemorpher.csv
+INFO:root:The accuracy is: 98.25%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 200    4]
+ [  21 1201]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.90      0.98      0.94       204
+           1       1.00      0.98      0.99      1222
+
+    accuracy                           0.98      1426
+   macro avg       0.95      0.98      0.97      1426
+weighted avg       0.98      0.98      0.98      1426
+
+INFO:root:EER: 1.84%
+INFO:root:APCER: 1.96%
+INFO:root:BPCER: 1.72%
+INFO:root:EER FAKE: 1.84%
+INFO:root:AUC@ROC: 0.9869468245563364, threshold:1.486471092009509e-268, EER: 0.0196078431372549, APCER:0.19607843137254902, BPCER:0.004091653027823241, ACER:0.10008504220018613
+INFO:root:
+
+
+INFO:root:model_amsl/test_morph_stylegan.csv
+INFO:root:The accuracy is: 78.47%
+INFO:root:Confusion Matrix:
+INFO:root:[[200   4]
+ [303 919]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.40      0.98      0.57       204
+           1       1.00      0.75      0.86      1222
+
+    accuracy                           0.78      1426
+   macro avg       0.70      0.87      0.71      1426
+weighted avg       0.91      0.78      0.82      1426
+
+INFO:root:EER: 13.38%
+INFO:root:APCER: 1.96%
+INFO:root:BPCER: 24.80%
+INFO:root:EER FAKE: 13.38%
+INFO:root:AUC@ROC: 0.9507878437790829, threshold:1.486471092009509e-268, EER: 0.10294117647058823, APCER:0.19607843137254902, BPCER:0.05073649754500818, ACER:0.12340746445877859
+INFO:root:
+
+
