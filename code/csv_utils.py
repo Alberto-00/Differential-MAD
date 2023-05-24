@@ -40,21 +40,26 @@ def check_and_add(file1, file2):
     with open(file2, 'r') as file2:
         reader2 = csv.reader(file2)
         for row in reader2:
-            if len(row[0].split('/')) > 1:
-                key = row[0].split('/')[3]  # valore nella prima colonna
-                data_train[key] = row[0:]  # memorizza i dati dalla prima colonna in poi
+            image_path = row[0].split('/')  # valore nella prima colonna
+
+            if len(image_path) > 1:
+                if len(image_path) > 4:
+                    key = image_path[4]
+                    data_train[key] = row[0:]  # memorizza i dati dalla prima colonna in poi
+                else:
+                    key = image_path[3]
+                    data_train[key] = row[0:]  # memorizza i dati dalla prima colonna in poi
 
     merged_data = {}
     for key in data_train:
         if key in data_tesisti:
             merged_data[key] = data_train[key] + data_tesisti[key]
 
-    with open('output/feature_extraction/model_webmorph/merge_csv/merged.csv', 'w', newline='') as merged_file:
+    with open('output/feature_extraction/model_webmorph/merged_csv/test/test_merged_webmorph.csv', 'w', newline='') as merged_file:
         writer = csv.writer(merged_file)
         for key in merged_data:
             row = merged_data[key]
             writer.writerow(row)
 
 
-# Utilizzo della funzione verifica_e_aggiungi
-check_and_add('dataset/csv_tesisti/train_tesisti.csv', 'output/feature_extraction/model_webmorph/train/train.csv')
+check_and_add('dataset/csv_tesisti/test/test_tesisti_webmorph.csv', 'output/feature_extraction/model_webmorph/test/test_morph_webmorph.csv')

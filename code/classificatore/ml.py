@@ -149,8 +149,14 @@ sel = VarianceThreshold(threshold=0.017)
 
 X_train_sel = sel.fit_transform(x)
 
-model = GaussianNB()
-# select the svm algorithm
+# select the GaussianNB algorithm
+# model = GaussianNB()
+
+# select the RabdomForest algorithm
+# model = RandomForestClassifier()
+
+# select the DecisionTree algorithm
+model = DecisionTreeClassifier()
 model.fit(X_train_sel, y)
 
 directory = '../output/feature_extraction/model_webmorph/test'
@@ -174,7 +180,7 @@ for filename in os.listdir(directory):
         prediction = model.predict(X_test_sel)
         # prediction = grid_search.predict(x_test)
 
-        logging.basicConfig(filename='../output/classificator/webmorph/info_webmorph.log', level=logging.INFO)
+        logging.basicConfig(filename='../output/classificator_DecisionTree/webmorph/info_webmorph.log', level=logging.INFO)
         logging.info(directory.split('/')[3] + '/' + filename)
         logging.info('The accuracy is: {:.2%}'.format(accuracy_score(prediction, y_test)))
         print(directory.split('/')[3] + '/' + filename)
