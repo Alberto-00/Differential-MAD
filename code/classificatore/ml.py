@@ -129,7 +129,7 @@ def compute_eer(label, pred):
     return eer
 
 
-train = pd.read_csv('../output/feature_extraction/model_webmorph/train/train.csv')
+train = pd.read_csv('../output/feature_extraction/model_webmorph/merged_csv/train/train_merged.csv')
 
 x = train.drop(['image_path', "label"], axis=1)
 y = []
@@ -159,7 +159,7 @@ X_train_sel = sel.fit_transform(x)
 model = DecisionTreeClassifier()
 model.fit(X_train_sel, y)
 
-directory = '../output/feature_extraction/model_webmorph/test'
+directory = '../output/feature_extraction/model_webmorph/merged_csv/test'
 for filename in os.listdir(directory):
     if filename.endswith(".csv"):
         test = pd.read_csv(directory + '/' + filename)
@@ -180,7 +180,7 @@ for filename in os.listdir(directory):
         prediction = model.predict(X_test_sel)
         # prediction = grid_search.predict(x_test)
 
-        logging.basicConfig(filename='../output/classificator_DecisionTree/webmorph/info_webmorph.log', level=logging.INFO)
+        logging.basicConfig(filename='../output/classificator_RandomForest/webmorph/merged/info_merged_webmorph.log', level=logging.INFO)
         logging.info(directory.split('/')[3] + '/' + filename)
         logging.info('The accuracy is: {:.2%}'.format(accuracy_score(prediction, y_test)))
         print(directory.split('/')[3] + '/' + filename)
