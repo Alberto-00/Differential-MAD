@@ -5,16 +5,18 @@ __all__ = ['MixNet', 'mixnet_s', 'mixnet_m', 'mixnet_l']
 
 import torch.nn.init as init
 
+import math
 import torch
 import torch.nn as nn
-from PIL import Image
-from torchvision import transforms
-import torchvision.models as model
-from backbones.activation import get_activation_layer
+from torchvision.models.feature_extraction import get_graph_node_names
+from torchvision.models.feature_extraction import create_feature_extractor
+from torchvision.models.detection.mask_rcnn import MaskRCNN
+from torchvision.models.detection.backbone_utils import LastLevelMaxPool
+from torchvision.ops.feature_pyramid_network import FeaturePyramidNetwork
+from backbones.activation import get_activation_layer, HSwish, Swish
 from backbones.common import dwconv3x3_block, SEBlock
-from backbones.utils import round_channels, _calc_width, conv3x3_block, conv1x1_block, \
+from backbones.utils import conv1x1, round_channels, _calc_width, ConvBlock, conv3x3_block, dwconv_block, conv1x1_block, \
     DwsConvBlock, channel_shuffle2, count_model_flops
-
 
 class MixConv(nn.Module):
     """
@@ -433,7 +435,7 @@ class MixNet(nn.Module):
 
         # adding the following classification layer for morph attack detection
         self.pool1 = torch.nn.AdaptiveAvgPool2d((1,1))
-        self.features_norm = nn.BatchNorm2d(final_block_channels , eps=1e-05)
+        self.features_norm = nn.BatchNorm1d(final_block_channels , eps=1e-05)
         nn.init.constant_(self.features_norm.weight, 1.0)
         self.features_norm.weight.requires_grad = False
         self._init_params()
@@ -451,18 +453,16 @@ class MixNet(nn.Module):
 
     def forward(self, x):
         x = self.features(x)
-        x = self.tail(x)
-        x = self.feautre_layer(x)
-
+        x=self.tail(x)
+        x=self.feautre_layer(x)
         print(x)
         # adding the following classification layer for morph attack detection
         x = self.pool1(x)
         x = x.view(x.size(0), -1)
-        x = self.features_norm(x)
+        x=self.features_norm(x)
         x = self.linear2(x.view(x.shape[0], -1))
 
         return x
-
 
 def get_mixnet(version,
                width_scale, embedding_size=512,model_name="mixnet_s",gdw_size=512
@@ -570,6 +570,8 @@ def mixnet_l(embedding_size=512,width_scale=1.3,shuffle=True,**kwargs):
     return get_mixnet(version="m", width_scale=width_scale,embedding_size=embedding_size, model_name="mixnet_l",shuffle=shuffle, **kwargs)
 
 
+
+
 def _test():
     import torch
 
@@ -579,21 +581,20 @@ def _test():
         mixnet_s
     ]
 
-    '''
     for model in models:
 
-        # net = model(embedding_size=512, width_scale=1.0, gdw_size=1024)
+        net = model(embedding_size=512, width_scale=1.0, gdw_size=1024)
         # print(net)
-        # weight_count = _calc_width(net)
-        # flops=count_model_flops(net)
+        weight_count = _calc_width(net)
+        flops=count_model_flops(net)
         # print("m={}, {}".format(model.__name__, weight_count))
         # print("m={}, {}".format(model.__name__, flops))
-        # net.eval()
+        net.eval()
         # create_feature_extractor(net, net.features)
 
         child_counter = 0
-        for child in net.features.children():
-            print(child)
+        '''for child in net.features.children():
+            print(child)'''
 
         # print(net.features_norm)
         # print(net.feautre_layer)
@@ -605,7 +606,6 @@ def _test():
         y = net(x)
         y.sum().backward()
         # assert (tuple(y.size()) == (1, 512))
-    '''
 
 
 if __name__ == "__main__":
