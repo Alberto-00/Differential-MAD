@@ -113,3 +113,118 @@ INFO:root:AUC@ROC: 0.8071373512549984, threshold:1.0, EER: 0.00980392156862745, 
 INFO:root:
 
 
+INFO:root:model_facemorpher/test_merged_amsl.csv
+INFO:root:The accuracy is: 9.28%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 102    0]
+ [1027    3]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.09      1.00      0.17       102
+           1       1.00      0.00      0.01      1030
+
+    accuracy                           0.09      1132
+   macro avg       0.55      0.50      0.09      1132
+weighted avg       0.92      0.09      0.02      1132
+
+INFO:root:EER: 49.85%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 99.71%
+INFO:root:EER FAKE: 49.85%
+INFO:root:AUC@ROC: 0.4156957928802588, threshold:0.05, EER: 0.6372549019607843, APCER:0.13725490196078433, BPCER:0.7902912621359224, ACER:0.4637730820483533
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_merged_facemorpher.csv
+INFO:root:The accuracy is: 85.20%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 102    0]
+ [ 196 1026]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.34      1.00      0.51       102
+           1       1.00      0.84      0.91      1222
+
+    accuracy                           0.85      1324
+   macro avg       0.67      0.92      0.71      1324
+weighted avg       0.95      0.85      0.88      1324
+
+INFO:root:EER: 8.02%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 16.04%
+INFO:root:EER FAKE: 8.02%
+INFO:root:AUC@ROC: 0.987757132312827, threshold:0.05, EER: 0.0196078431372549, APCER:0.13725490196078433, BPCER:0.019639934533551555, ACER:0.07844741824716794
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_merged_opencv.csv
+INFO:root:The accuracy is: 68.25%
+INFO:root:Confusion Matrix:
+INFO:root:[[102   0]
+ [420 801]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.20      1.00      0.33       102
+           1       1.00      0.66      0.79      1221
+
+    accuracy                           0.68      1323
+   macro avg       0.60      0.83      0.56      1323
+weighted avg       0.94      0.68      0.76      1323
+
+INFO:root:EER: 17.20%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 34.40%
+INFO:root:EER FAKE: 17.20%
+INFO:root:AUC@ROC: 0.9805286569992452, threshold:0.05, EER: 0.0392156862745098, APCER:0.13725490196078433, BPCER:0.02620802620802621, ACER:0.08173146408440526
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_merged_stylegan.csv
+INFO:root:The accuracy is: 26.06%
+INFO:root:Confusion Matrix:
+INFO:root:[[102   0]
+ [979 243]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.09      1.00      0.17       102
+           1       1.00      0.20      0.33      1222
+
+    accuracy                           0.26      1324
+   macro avg       0.55      0.60      0.25      1324
+weighted avg       0.93      0.26      0.32      1324
+
+INFO:root:EER: 40.06%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 80.11%
+INFO:root:EER FAKE: 40.06%
+INFO:root:AUC@ROC: 0.7568194217130386, threshold:0.05, EER: 0.27450980392156865, APCER:0.13725490196078433, BPCER:0.3608837970540098, ACER:0.24906934950739706
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_merged_webmorph.csv
+INFO:root:The accuracy is: 7.86%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 102    0]
+ [1219    2]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.08      1.00      0.14       102
+           1       1.00      0.00      0.00      1221
+
+    accuracy                           0.08      1323
+   macro avg       0.54      0.50      0.07      1323
+weighted avg       0.93      0.08      0.01      1323
+
+INFO:root:EER: 49.92%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 99.84%
+INFO:root:EER FAKE: 49.92%
+INFO:root:AUC@ROC: 0.3672616466734114, threshold:0.05, EER: 0.6372549019607843, APCER:0.13725490196078433, BPCER:0.8394758394758395, ACER:0.4883653707183119
+INFO:root:
+
+
