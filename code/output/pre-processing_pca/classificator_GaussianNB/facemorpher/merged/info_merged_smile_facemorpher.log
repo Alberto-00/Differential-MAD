@@ -1,0 +1,115 @@
+INFO:root:model_facemorpher/test_morph_s_amsl.csv
+INFO:root:The accuracy is: 97.76%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 188   16]
+ [  35 2038]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.84      0.92      0.88       204
+           1       0.99      0.98      0.99      2073
+
+    accuracy                           0.98      2277
+   macro avg       0.92      0.95      0.93      2277
+weighted avg       0.98      0.98      0.98      2277
+
+INFO:root:EER: 4.77%
+INFO:root:APCER: 7.84%
+INFO:root:BPCER: 1.69%
+INFO:root:EER FAKE: 4.77%
+INFO:root:AUC@ROC: 0.9688312855291659, threshold:2.7897745724132627e-73, EER: 0.058823529411764705, APCER:0.19607843137254902, BPCER:0.001447178002894356, ACER:0.09876280468772168
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_morph_s_webmorph.csv
+INFO:root:The accuracy is: 98.72%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 188   16]
+ [   1 1118]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.96       204
+           1       0.99      1.00      0.99      1119
+
+    accuracy                           0.99      1323
+   macro avg       0.99      0.96      0.97      1323
+weighted avg       0.99      0.99      0.99      1323
+
+INFO:root:EER: 3.97%
+INFO:root:APCER: 7.84%
+INFO:root:BPCER: 0.09%
+INFO:root:EER FAKE: 3.97%
+INFO:root:AUC@ROC: 0.9705181447020274, threshold:2.7897745724132627e-73, EER: 0.058823529411764705, APCER:0.19607843137254902, BPCER:0.0, ACER:0.09803921568627451
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_morph_s_opencv.csv
+INFO:root:The accuracy is: 98.79%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 188   16]
+ [   0 1119]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       1.00      0.92      0.96       204
+           1       0.99      1.00      0.99      1119
+
+    accuracy                           0.99      1323
+   macro avg       0.99      0.96      0.98      1323
+weighted avg       0.99      0.99      0.99      1323
+
+INFO:root:EER: 3.92%
+INFO:root:APCER: 7.84%
+INFO:root:BPCER: 0.00%
+INFO:root:EER FAKE: 3.92%
+INFO:root:AUC@ROC: 0.9705882352941176, threshold:2.7897745724132627e-73, EER: 0.058823529411764705, APCER:0.19607843137254902, BPCER:0.0, ACER:0.09803921568627451
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_morph_s_stylegan.csv
+INFO:root:The accuracy is: 98.56%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 188   16]
+ [   3 1117]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.98      0.92      0.95       204
+           1       0.99      1.00      0.99      1120
+
+    accuracy                           0.99      1324
+   macro avg       0.99      0.96      0.97      1324
+weighted avg       0.99      0.99      0.99      1324
+
+INFO:root:EER: 4.06%
+INFO:root:APCER: 7.84%
+INFO:root:BPCER: 0.27%
+INFO:root:EER FAKE: 4.06%
+INFO:root:AUC@ROC: 0.9703037464985995, threshold:2.7897745724132627e-73, EER: 0.058823529411764705, APCER:0.19607843137254902, BPCER:0.0, ACER:0.09803921568627451
+INFO:root:
+
+
+INFO:root:model_facemorpher/test_morph_s_facemorpher.csv
+INFO:root:The accuracy is: 98.79%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 188   16]
+ [   0 1120]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       1.00      0.92      0.96       204
+           1       0.99      1.00      0.99      1120
+
+    accuracy                           0.99      1324
+   macro avg       0.99      0.96      0.98      1324
+weighted avg       0.99      0.99      0.99      1324
+
+INFO:root:EER: 3.92%
+INFO:root:APCER: 7.84%
+INFO:root:BPCER: 0.00%
+INFO:root:EER FAKE: 3.92%
+INFO:root:AUC@ROC: 0.9705882352941176, threshold:2.7897745724132627e-73, EER: 0.058823529411764705, APCER:0.19607843137254902, BPCER:0.0, ACER:0.09803921568627451
+INFO:root:
+
+
