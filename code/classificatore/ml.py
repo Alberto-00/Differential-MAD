@@ -61,7 +61,6 @@ def get_bpcer_op(apcer, bpcer, threshold, op):
     temp = abs(bpcer - op)
     min_val = np.min(temp)
     index = np.where(temp == min_val)[0][-1]
-
     return index, apcer[index], threshold[index]
 
 
@@ -83,6 +82,17 @@ def performances_compute(prediction_scores, gt_labels, threshold_type, op_val, v
     bpcer = 1 - tpr
     val_eer, _, eer_threshold = get_eer_threhold(fpr, tpr, threshold)
     val_auc = auc(fpr, tpr)
+
+    _, test_apcer_01, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.0001)
+    _, test_apcer_1, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.01)
+    _, test_apcer_10, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.10)
+    _, test_apcer_20, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.20)
+
+    logging.info(f'BPCR(0.10 %) @ APCR = : {(test_apcer_01 * 100)}, BPCR (1.00%) @ APCR =:{(test_apcer_1 * 100)}, '
+                 f'BPCR (10.00%) @ APCR =: {(test_apcer_10 * 100)}, BPCR (20.00%) @ APCR =:{(test_apcer_20 * 100)}')
+
+    print(f'BPCR(0.10 %) @ APCR = : {(test_apcer_01 * 100)}, BPCR (1.00%) @ APCR =:{(test_apcer_1 * 100)}, '
+                 f'BPCR (10.00%) @ APCR =: {(test_apcer_10 * 100)}, BPCR (20.00%) @ APCR =:{(test_apcer_20 * 100)}')
 
     if threshold_type == 'eer':
         threshold = eer_threshold
@@ -108,15 +118,6 @@ def performances_compute(prediction_scores, gt_labels, threshold_type, op_val, v
             f'AUC@ROC: {val_auc}, threshold:{threshold}, EER: {val_eer}, APCER:{threshold_APCER}, BPCER:{threshold_BPCER}, ACER:{threshold_ACER}')
         print(
             f'AUC@ROC: {val_auc}, threshold:{threshold}, EER: {val_eer}, APCER:{threshold_APCER}, BPCER:{threshold_BPCER}, ACER:{threshold_ACER}')
-
-    _, test_apcer_01, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.0001)
-    _, test_apcer_1, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.01)
-    _, test_apcer_10, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.10)
-    _, test_apcer_20, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.20)
-
-    logging.info(f'BPCR(0.10 %) @ APCR = : {(test_apcer_01 * 100)}, BPCR (1.00%) @ APCR =:{(test_apcer_1 * 100)}, '
-                  f'BPCR (10.00%) @ APCR =: {(test_apcer_10 * 100)}, BPCR (20.00%) @ APCR =:{(test_apcer_20 * 100)}')
-
     return val_auc, val_eer, [threshold, threshold_APCER, threshold_BPCER, threshold_ACER]
 
 
@@ -155,15 +156,15 @@ y = [mappa_valori[val] for val in y]
 
 from sklearn.decomposition import PCA
 
-# pca = PCA(n_components='mle', copy=True)
-# pca_values = pca.fit_transform(x)
+pca = PCA(n_components='mle', copy=True)
+pca_values = pca.fit_transform(x)
 
-# model = GaussianNB()
+#model = GaussianNB()
 # model.fit(pca_values, y)
 
-sel = VarianceThreshold(threshold=0.017)
+# sel = VarianceThreshold(threshold=0.017)
 
-X_train_sel = sel.fit_transform(x)
+# X_train_sel = sel.fit_transform(x)
 
 # select the GaussianNB algorithm
 # model = GaussianNB()
@@ -171,7 +172,7 @@ X_train_sel = sel.fit_transform(x)
 
 # select the RabdomForest algorithm
 model = RandomForestClassifier()
-model.fit(X_train_sel, y)
+model.fit(pca_values, y)
 
 # select the DecisionTree algorithm
 # model = DecisionTreeClassifier()
@@ -194,11 +195,11 @@ for filename in os.listdir(directory):
         y_test = [mappa_valori[val] for val in y_test]
 
         # test_scaled  = scaler.transform(x_test)
-        X_test_sel = sel.transform(x_test)
+        X_test_sel = pca.transform(x_test)
         prediction = model.predict(X_test_sel)
         # prediction = grid_search.predict(x_test)
 
-        logging.basicConfig(filename='../output/pre-processing_vt/classificator_RandomForest/webmorph/merged/info_merged_smile_webmorph.log', level=logging.INFO)
+        logging.basicConfig(filename='../output/pre-processing_pca/classificator_RandomForest/webmorph/merged/info_smile_webmorph.log', level=logging.INFO)
         logging.info(directory.split('/')[3] + '/' + filename)
         logging.info('The accuracy is: {:.2%}'.format(accuracy_score(prediction, y_test)))
         print(directory.split('/')[3] + '/' + filename)
@@ -232,7 +233,7 @@ for filename in os.listdir(directory):
         # Calcolare l'APCER e il BPCER per ogni punto di lavoro
         decision_scores = model.predict_proba(X_test_sel)[:, 1]
         # y_pred_morphed = decision_scores[:, 0]
-        performances_compute(decision_scores, y_test, "apcer", 0.2, True)
+        performances_compute(decision_scores, y_test, "apcr", 0.2, True)
 
         logging.info('\n\n')
         print('\n\n')

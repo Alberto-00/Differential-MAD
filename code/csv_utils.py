@@ -1,6 +1,5 @@
 import csv
 import os
-import pandas as pd
 
 
 def csv_generation():
@@ -55,7 +54,7 @@ def check_and_add(file1, file2):
         if key in data_tesisti:
             merged_data[key] = data_train[key] + data_tesisti[key]
 
-    with open('output/feature_extraction/model_webmorph/merged_csv/test/test_merged_webmorph.csv', 'w', newline='') as merged_file:
+    with open('output/feature_extraction/model_webmorph/merged_noSmile_csv/test/test_merged_webmorph.csv', 'w', newline='') as merged_file:
         writer = csv.writer(merged_file)
         for key in merged_data:
             row = merged_data[key]
