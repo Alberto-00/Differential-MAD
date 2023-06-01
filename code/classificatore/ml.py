@@ -109,6 +109,14 @@ def performances_compute(prediction_scores, gt_labels, threshold_type, op_val, v
         print(
             f'AUC@ROC: {val_auc}, threshold:{threshold}, EER: {val_eer}, APCER:{threshold_APCER}, BPCER:{threshold_BPCER}, ACER:{threshold_ACER}')
 
+    _, test_apcer_01, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.0001)
+    _, test_apcer_1, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.01)
+    _, test_apcer_10, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.10)
+    _, test_apcer_20, _ = get_bpcer_op(fpr, bpcer, threshold, op=0.20)
+
+    logging.info(f'BPCR(0.10 %) @ APCR = : {(test_apcer_01 * 100)}, BPCR (1.00%) @ APCR =:{(test_apcer_1 * 100)}, '
+                  f'BPCR (10.00%) @ APCR =: {(test_apcer_10 * 100)}, BPCR (20.00%) @ APCR =:{(test_apcer_20 * 100)}')
+
     return val_auc, val_eer, [threshold, threshold_APCER, threshold_BPCER, threshold_ACER]
 
 
@@ -129,7 +137,7 @@ def compute_eer(label, pred):
     return eer
 
 
-train = pd.read_csv('../output/feature_extraction/model_amsl/train/train.csv')
+train = pd.read_csv('../output/feature_extraction/model_webmorph/merged_csv/train/train_merged.csv')
 
 x = train.drop(['image_path', "label"], axis=1)
 y = []
@@ -147,28 +155,29 @@ y = [mappa_valori[val] for val in y]
 
 from sklearn.decomposition import PCA
 
-pca = PCA(n_components='mle', copy=True)
-pca_values = pca.fit_transform(x)
-print(pca_values)
-model = DecisionTreeClassifier()
-model.fit(pca_values, y)
-print(model)
+# pca = PCA(n_components='mle', copy=True)
+# pca_values = pca.fit_transform(x)
 
-#sel = VarianceThreshold(threshold=0.017)
+# model = GaussianNB()
+# model.fit(pca_values, y)
 
-#X_train_sel = sel.fit_transform(x)
+sel = VarianceThreshold(threshold=0.017)
+
+X_train_sel = sel.fit_transform(x)
 
 # select the GaussianNB algorithm
 # model = GaussianNB()
+# model.fit(X_train_sel, y)
 
 # select the RabdomForest algorithm
-# model = RandomForestClassifier()
+model = RandomForestClassifier()
+model.fit(X_train_sel, y)
 
 # select the DecisionTree algorithm
-#model = DecisionTreeClassifier()
-#model.fit(X_train_sel, y)
+# model = DecisionTreeClassifier()
+# model.fit(X_train_sel, y)
 
-directory = '../output/feature_extraction/model_amsl/test'
+directory = '../output/feature_extraction/model_webmorph/merged_csv/test_smile'
 for filename in os.listdir(directory):
     if filename.endswith(".csv"):
         test = pd.read_csv(directory + '/' + filename)
@@ -185,11 +194,11 @@ for filename in os.listdir(directory):
         y_test = [mappa_valori[val] for val in y_test]
 
         # test_scaled  = scaler.transform(x_test)
-        X_test_sel = pca.transform(x_test)
+        X_test_sel = sel.transform(x_test)
         prediction = model.predict(X_test_sel)
         # prediction = grid_search.predict(x_test)
 
-        logging.basicConfig(filename='../output/pre-processing_pca/classificator_DecisionTree/amsl/info_amsl.log', level=logging.INFO)
+        logging.basicConfig(filename='../output/pre-processing_vt/classificator_RandomForest/webmorph/merged/info_merged_smile_webmorph.log', level=logging.INFO)
         logging.info(directory.split('/')[3] + '/' + filename)
         logging.info('The accuracy is: {:.2%}'.format(accuracy_score(prediction, y_test)))
         print(directory.split('/')[3] + '/' + filename)
