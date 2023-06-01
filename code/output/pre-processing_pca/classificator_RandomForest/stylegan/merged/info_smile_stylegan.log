@@ -1,115 +1,120 @@
 INFO:root:model_stylegan/test_morph_s_amsl.csv
-INFO:root:The accuracy is: 16.25%
+INFO:root:The accuracy is: 16.56%
 INFO:root:Confusion Matrix:
-INFO:root:[[ 191   13]
- [1894  179]]
+INFO:root:[[ 190   14]
+ [1886  187]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
-           0       0.09      0.94      0.17       204
+           0       0.09      0.93      0.17       204
            1       0.93      0.09      0.16      2073
 
-    accuracy                           0.16      2277
-   macro avg       0.51      0.51      0.16      2277
-weighted avg       0.86      0.16      0.16      2277
+    accuracy                           0.17      2277
+   macro avg       0.51      0.51      0.17      2277
+weighted avg       0.86      0.17      0.16      2277
 
-INFO:root:EER: 48.87%
-INFO:root:APCER: 6.37%
-INFO:root:BPCER: 91.37%
-INFO:root:EER FAKE: 48.87%
-INFO:root:AUC@ROC: 0.5962420665323535, threshold:0.02, EER: 0.28431372549019607, APCER:0.17647058823529413, BPCER:0.6676314520019295, ACER:0.42205102011861184
+INFO:root:EER: 48.92%
+INFO:root:APCER: 6.86%
+INFO:root:BPCER: 90.98%
+INFO:root:EER FAKE: 48.92%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 100.0, BPCR (20.00%) @ APCR =:100.0
+INFO:root:AUC@ROC: 0.5817915685328642, threshold:0.5, EER: 0.3480392156862745, APCER:0.06862745098039216, BPCER:0.9097925711529185, ACER:0.4892100110666553
 INFO:root:
 
 
-INFO:root:model_stylegan/test_morph_s_facemorpher.csv
-INFO:root:The accuracy is: 96.75%
+INFO:root:model_stylegan/test_morph_s_webmorph.csv
+INFO:root:The accuracy is: 20.26%
 INFO:root:Confusion Matrix:
-INFO:root:[[ 191   13]
- [  30 1090]]
+INFO:root:[[ 190   14]
+ [1041   78]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
-           0       0.86      0.94      0.90       204
-           1       0.99      0.97      0.98      1120
+           0       0.15      0.93      0.26       204
+           1       0.85      0.07      0.13      1119
 
-    accuracy                           0.97      1324
-   macro avg       0.93      0.95      0.94      1324
-weighted avg       0.97      0.97      0.97      1324
+    accuracy                           0.20      1323
+   macro avg       0.50      0.50      0.20      1323
+weighted avg       0.74      0.20      0.15      1323
 
-INFO:root:EER: 4.53%
-INFO:root:APCER: 6.37%
-INFO:root:BPCER: 2.68%
-INFO:root:EER FAKE: 4.53%
-INFO:root:AUC@ROC: 0.9903448879551819, threshold:0.02, EER: 0.0392156862745098, APCER:0.17647058823529413, BPCER:0.008928571428571428, ACER:0.09269957983193278
+INFO:root:EER: 49.95%
+INFO:root:APCER: 6.86%
+INFO:root:BPCER: 93.03%
+INFO:root:EER FAKE: 49.95%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 100.0, BPCR (20.00%) @ APCR =:34.80392156862745
+INFO:root:AUC@ROC: 0.6396752177189016, threshold:0.5, EER: 0.3480392156862745, APCER:0.06862745098039216, BPCER:0.9302949061662198, ACER:0.49946117857330596
 INFO:root:
 
 
 INFO:root:model_stylegan/test_morph_s_opencv.csv
 INFO:root:The accuracy is: 95.77%
 INFO:root:Confusion Matrix:
-INFO:root:[[ 191   13]
- [  43 1076]]
+INFO:root:[[ 190   14]
+ [  42 1077]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
-           0       0.82      0.94      0.87       204
+           0       0.82      0.93      0.87       204
            1       0.99      0.96      0.97      1119
 
     accuracy                           0.96      1323
    macro avg       0.90      0.95      0.92      1323
 weighted avg       0.96      0.96      0.96      1323
 
-INFO:root:EER: 5.11%
-INFO:root:APCER: 6.37%
-INFO:root:BPCER: 3.84%
-INFO:root:EER FAKE: 5.11%
-INFO:root:AUC@ROC: 0.9840587709614677, threshold:0.02, EER: 0.05392156862745098, APCER:0.17647058823529413, BPCER:0.010723860589812333, ACER:0.09359722441255323
+INFO:root:EER: 5.31%
+INFO:root:APCER: 6.86%
+INFO:root:BPCER: 3.75%
+INFO:root:EER FAKE: 5.31%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:20.588235294117645, BPCR (10.00%) @ APCR =: 1.9607843137254901, BPCR (20.00%) @ APCR =:1.9607843137254901
+INFO:root:AUC@ROC: 0.986809826701011, threshold:0.5, EER: 0.05392156862745098, APCER:0.06862745098039216, BPCER:0.03753351206434316, ACER:0.05308048152236766
 INFO:root:
 
 
 INFO:root:model_stylegan/test_morph_s_stylegan.csv
-INFO:root:The accuracy is: 71.83%
+INFO:root:The accuracy is: 71.53%
 INFO:root:Confusion Matrix:
-INFO:root:[[191  13]
- [360 760]]
+INFO:root:[[190  14]
+ [363 757]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
-           0       0.35      0.94      0.51       204
+           0       0.34      0.93      0.50       204
            1       0.98      0.68      0.80      1120
 
     accuracy                           0.72      1324
-   macro avg       0.66      0.81      0.65      1324
-weighted avg       0.89      0.72      0.76      1324
+   macro avg       0.66      0.80      0.65      1324
+weighted avg       0.88      0.72      0.75      1324
 
-INFO:root:EER: 19.26%
-INFO:root:APCER: 6.37%
-INFO:root:BPCER: 32.14%
-INFO:root:EER FAKE: 19.26%
-INFO:root:AUC@ROC: 0.9111432072829131, threshold:0.02, EER: 0.14215686274509803, APCER:0.17647058823529413, BPCER:0.10535714285714286, ACER:0.1409138655462185
+INFO:root:EER: 19.64%
+INFO:root:APCER: 6.86%
+INFO:root:BPCER: 32.41%
+INFO:root:EER FAKE: 19.64%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 20.588235294117645, BPCR (20.00%) @ APCR =:12.745098039215685
+INFO:root:AUC@ROC: 0.9110534838935576, threshold:0.5, EER: 0.14705882352941177, APCER:0.06862745098039216, BPCER:0.32410714285714287, ACER:0.19636729691876753
 INFO:root:
 
 
-INFO:root:model_stylegan/test_morph_s_webmorph.csv
-INFO:root:The accuracy is: 19.88%
+INFO:root:model_stylegan/test_morph_s_facemorpher.csv
+INFO:root:The accuracy is: 96.75%
 INFO:root:Confusion Matrix:
-INFO:root:[[ 191   13]
- [1047   72]]
+INFO:root:[[ 190   14]
+ [  29 1091]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
-           0       0.15      0.94      0.26       204
-           1       0.85      0.06      0.12      1119
+           0       0.87      0.93      0.90       204
+           1       0.99      0.97      0.98      1120
 
-    accuracy                           0.20      1323
-   macro avg       0.50      0.50      0.19      1323
-weighted avg       0.74      0.20      0.14      1323
+    accuracy                           0.97      1324
+   macro avg       0.93      0.95      0.94      1324
+weighted avg       0.97      0.97      0.97      1324
 
-INFO:root:EER: 49.97%
-INFO:root:APCER: 6.37%
-INFO:root:BPCER: 93.57%
-INFO:root:EER FAKE: 49.97%
-INFO:root:AUC@ROC: 0.6535181096567313, threshold:0.02, EER: 0.28431372549019607, APCER:0.17647058823529413, BPCER:0.5397676496872207, ACER:0.3581191189612574
+INFO:root:EER: 4.73%
+INFO:root:APCER: 6.86%
+INFO:root:BPCER: 2.59%
+INFO:root:EER FAKE: 4.73%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:15.686274509803921, BPCR (10.00%) @ APCR =: 0.0, BPCR (20.00%) @ APCR =:0.0
+INFO:root:AUC@ROC: 0.9910911239495799, threshold:0.5, EER: 0.03431372549019608, APCER:0.06862745098039216, BPCER:0.025892857142857145, ACER:0.047260154061624655
 INFO:root:
 
 

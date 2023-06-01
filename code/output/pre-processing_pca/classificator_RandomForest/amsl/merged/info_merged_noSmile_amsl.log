@@ -1,115 +1,120 @@
-INFO:root:model_amsl/test_merged_amsl.csv
-INFO:root:The accuracy is: 10.50%
-INFO:root:Confusion Matrix:
-INFO:root:[[ 102    0]
- [2038  137]]
-INFO:root:Classifiction Report: 
-INFO:root:              precision    recall  f1-score   support
-
-           0       0.05      1.00      0.09       102
-           1       1.00      0.06      0.12      2175
-
-    accuracy                           0.10      2277
-   macro avg       0.52      0.53      0.10      2277
-weighted avg       0.96      0.10      0.12      2277
-
-INFO:root:EER: 46.85%
-INFO:root:APCER: 0.00%
-INFO:root:BPCER: 93.70%
-INFO:root:EER FAKE: 46.85%
-INFO:root:AUC@ROC: 0.4392314627000225, threshold:0.15, EER: 0.5686274509803921, APCER:0.17647058823529413, BPCER:0.767816091954023, ACER:0.4721433400946586
-INFO:root:
-
-
 INFO:root:model_amsl/test_merged_facemorpher.csv
-INFO:root:The accuracy is: 99.47%
+INFO:root:The accuracy is: 99.29%
 INFO:root:Confusion Matrix:
 INFO:root:[[ 102    0]
- [   6 1024]]
+ [   8 1022]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
-           0       0.94      1.00      0.97       102
+           0       0.93      1.00      0.96       102
            1       1.00      0.99      1.00      1030
 
     accuracy                           0.99      1132
-   macro avg       0.97      1.00      0.98      1132
+   macro avg       0.96      1.00      0.98      1132
 weighted avg       0.99      0.99      0.99      1132
 
-INFO:root:EER: 0.29%
+INFO:root:EER: 0.39%
 INFO:root:APCER: 0.00%
-INFO:root:BPCER: 0.58%
-INFO:root:EER FAKE: 0.29%
-INFO:root:AUC@ROC: 0.9995050447363412, threshold:0.15, EER: 0.0, APCER:0.17647058823529413, BPCER:0.000970873786407767, ACER:0.08872073101085094
-INFO:root:
-
-
-INFO:root:model_amsl/test_merged_opencv.csv
-INFO:root:The accuracy is: 96.82%
-INFO:root:Confusion Matrix:
-INFO:root:[[102   0]
- [ 36 994]]
-INFO:root:Classifiction Report: 
-INFO:root:              precision    recall  f1-score   support
-
-           0       0.74      1.00      0.85       102
-           1       1.00      0.97      0.98      1030
-
-    accuracy                           0.97      1132
-   macro avg       0.87      0.98      0.92      1132
-weighted avg       0.98      0.97      0.97      1132
-
-INFO:root:EER: 1.75%
-INFO:root:APCER: 0.00%
-INFO:root:BPCER: 3.50%
-INFO:root:EER FAKE: 1.75%
-INFO:root:AUC@ROC: 0.997225395012374, threshold:0.15, EER: 0.00980392156862745, APCER:0.17647058823529413, BPCER:0.005825242718446602, ACER:0.09114791547687037
+INFO:root:BPCER: 0.78%
+INFO:root:EER FAKE: 0.39%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:0.0, BPCR (10.00%) @ APCR =: 0.0, BPCR (20.00%) @ APCR =:0.0
+INFO:root:AUC@ROC: 0.9992337711783742, threshold:0.5, EER: 0.0, APCER:0.0, BPCER:0.007766990291262136, ACER:0.003883495145631068
 INFO:root:
 
 
 INFO:root:model_amsl/test_merged_stylegan.csv
-INFO:root:The accuracy is: 61.31%
+INFO:root:The accuracy is: 60.60%
 INFO:root:Confusion Matrix:
 INFO:root:[[102   0]
- [438 592]]
+ [446 584]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
-           0       0.19      1.00      0.32       102
-           1       1.00      0.57      0.73      1030
+           0       0.19      1.00      0.31       102
+           1       1.00      0.57      0.72      1030
 
     accuracy                           0.61      1132
-   macro avg       0.59      0.79      0.52      1132
+   macro avg       0.59      0.78      0.52      1132
 weighted avg       0.93      0.61      0.69      1132
 
-INFO:root:EER: 21.26%
+INFO:root:EER: 21.65%
 INFO:root:APCER: 0.00%
-INFO:root:BPCER: 42.52%
-INFO:root:EER FAKE: 21.26%
-INFO:root:AUC@ROC: 0.8421235484485057, threshold:0.15, EER: 0.20588235294117646, APCER:0.17647058823529413, BPCER:0.24563106796116504, ACER:0.2110508280982296
+INFO:root:BPCER: 43.30%
+INFO:root:EER FAKE: 21.65%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 70.58823529411765, BPCR (20.00%) @ APCR =:34.31372549019608
+INFO:root:AUC@ROC: 0.8463735008566532, threshold:0.5, EER: 0.22549019607843138, APCER:0.0, BPCER:0.4330097087378641, ACER:0.21650485436893205
 INFO:root:
 
 
 INFO:root:model_amsl/test_merged_webmorph.csv
-INFO:root:The accuracy is: 13.07%
+INFO:root:The accuracy is: 11.84%
 INFO:root:Confusion Matrix:
 INFO:root:[[102   0]
- [984  46]]
+ [998  32]]
 INFO:root:Classifiction Report: 
 INFO:root:              precision    recall  f1-score   support
 
            0       0.09      1.00      0.17       102
-           1       1.00      0.04      0.09      1030
+           1       1.00      0.03      0.06      1030
 
-    accuracy                           0.13      1132
-   macro avg       0.55      0.52      0.13      1132
-weighted avg       0.92      0.13      0.09      1132
+    accuracy                           0.12      1132
+   macro avg       0.55      0.52      0.11      1132
+weighted avg       0.92      0.12      0.07      1132
 
-INFO:root:EER: 47.77%
+INFO:root:EER: 48.45%
 INFO:root:APCER: 0.00%
-INFO:root:BPCER: 95.53%
-INFO:root:EER FAKE: 47.77%
-INFO:root:AUC@ROC: 0.43207690843327623, threshold:0.15, EER: 0.5686274509803921, APCER:0.17647058823529413, BPCER:0.7883495145631068, ACER:0.48241005139920046
+INFO:root:BPCER: 96.89%
+INFO:root:EER FAKE: 48.45%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 100.0, BPCR (20.00%) @ APCR =:83.33333333333334
+INFO:root:AUC@ROC: 0.45839520274129064, threshold:0.5, EER: 0.5490196078431373, APCER:0.0, BPCER:0.9689320388349515, ACER:0.48446601941747575
+INFO:root:
+
+
+INFO:root:model_amsl/test_merged_amsl.csv
+INFO:root:The accuracy is: 9.84%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 102    0]
+ [2053  122]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.05      1.00      0.09       102
+           1       1.00      0.06      0.11      2175
+
+    accuracy                           0.10      2277
+   macro avg       0.52      0.53      0.10      2277
+weighted avg       0.96      0.10      0.11      2277
+
+INFO:root:EER: 47.20%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 94.39%
+INFO:root:EER FAKE: 47.20%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 100.0, BPCR (20.00%) @ APCR =:83.33333333333334
+INFO:root:AUC@ROC: 0.4657583953121479, threshold:0.5, EER: 0.5490196078431373, APCER:0.0, BPCER:0.9439080459770115, ACER:0.47195402298850575
+INFO:root:
+
+
+INFO:root:model_amsl/test_merged_opencv.csv
+INFO:root:The accuracy is: 96.38%
+INFO:root:Confusion Matrix:
+INFO:root:[[102   0]
+ [ 41 989]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.71      1.00      0.83       102
+           1       1.00      0.96      0.98      1030
+
+    accuracy                           0.96      1132
+   macro avg       0.86      0.98      0.91      1132
+weighted avg       0.97      0.96      0.97      1132
+
+INFO:root:EER: 1.99%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 3.98%
+INFO:root:EER FAKE: 1.99%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:1.9607843137254901, BPCR (10.00%) @ APCR =: 0.0, BPCR (20.00%) @ APCR =:0.0
+INFO:root:AUC@ROC: 0.9974300399771558, threshold:0.5, EER: 0.00980392156862745, APCER:0.0, BPCER:0.039805825242718446, ACER:0.019902912621359223
 INFO:root:
 
 
