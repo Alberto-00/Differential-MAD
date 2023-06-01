@@ -1,5 +1,5 @@
 code/venv/*
-code/dataset/*
+code/dataset/SMDD_train/*
 code/output/test_results
 code/output/train_info.log
 code/.idea
