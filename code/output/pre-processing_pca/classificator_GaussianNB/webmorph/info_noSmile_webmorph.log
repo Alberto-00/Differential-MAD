@@ -1,0 +1,120 @@
+INFO:root:model_webmorph/test_morph_amsl.csv
+INFO:root:The accuracy is: 4.66%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 102    0]
+ [2171    4]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.04      1.00      0.09       102
+           1       1.00      0.00      0.00      2175
+
+    accuracy                           0.05      2277
+   macro avg       0.52      0.50      0.04      2277
+weighted avg       0.96      0.05      0.01      2277
+
+INFO:root:EER: 49.91%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 99.82%
+INFO:root:EER FAKE: 49.91%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 100.0, BPCR (20.00%) @ APCR =:16.666666666666664
+INFO:root:AUC@ROC: 0.797552400270453, threshold:0.5, EER: 0.16666666666666666, APCER:0.0, BPCER:0.9981609195402299, ACER:0.49908045977011495
+INFO:root:
+
+
+INFO:root:model_webmorph/test_morph_webmorph.csv
+INFO:root:The accuracy is: 8.01%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 102    0]
+ [1217    4]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.08      1.00      0.14       102
+           1       1.00      0.00      0.01      1221
+
+    accuracy                           0.08      1323
+   macro avg       0.54      0.50      0.08      1323
+weighted avg       0.93      0.08      0.02      1323
+
+INFO:root:EER: 49.84%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 99.67%
+INFO:root:EER FAKE: 49.84%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 16.666666666666664, BPCR (20.00%) @ APCR =:14.705882352941178
+INFO:root:AUC@ROC: 0.8675507057859998, threshold:0.5, EER: 0.1568627450980392, APCER:0.0, BPCER:0.9967239967239967, ACER:0.49836199836199835
+INFO:root:
+
+
+INFO:root:model_webmorph/test_morph_opencv.csv
+INFO:root:The accuracy is: 68.44%
+INFO:root:Confusion Matrix:
+INFO:root:[[102   0]
+ [420 809]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.20      1.00      0.33       102
+           1       1.00      0.66      0.79      1229
+
+    accuracy                           0.68      1331
+   macro avg       0.60      0.83      0.56      1331
+weighted avg       0.94      0.68      0.76      1331
+
+INFO:root:EER: 17.09%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 34.17%
+INFO:root:EER FAKE: 17.09%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 0.9803921568627451, BPCR (20.00%) @ APCR =:0.0
+INFO:root:AUC@ROC: 0.9844285964996252, threshold:0.5, EER: 0.029411764705882353, APCER:0.0, BPCER:0.3417412530512612, ACER:0.1708706265256306
+INFO:root:
+
+
+INFO:root:model_webmorph/test_morph_facemorpher.csv
+INFO:root:The accuracy is: 86.25%
+INFO:root:Confusion Matrix:
+INFO:root:[[ 102    0]
+ [ 182 1040]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.36      1.00      0.53       102
+           1       1.00      0.85      0.92      1222
+
+    accuracy                           0.86      1324
+   macro avg       0.68      0.93      0.72      1324
+weighted avg       0.95      0.86      0.89      1324
+
+INFO:root:EER: 7.45%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 14.89%
+INFO:root:EER FAKE: 7.45%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 0.0, BPCR (20.00%) @ APCR =:0.0
+INFO:root:AUC@ROC: 0.9803761111645969, threshold:0.5, EER: 0.029411764705882353, APCER:0.0, BPCER:0.14893617021276595, ACER:0.07446808510638298
+INFO:root:
+
+
+INFO:root:model_webmorph/test_morph_stylegan.csv
+INFO:root:The accuracy is: 45.47%
+INFO:root:Confusion Matrix:
+INFO:root:[[102   0]
+ [722 500]]
+INFO:root:Classifiction Report: 
+INFO:root:              precision    recall  f1-score   support
+
+           0       0.12      1.00      0.22       102
+           1       1.00      0.41      0.58      1222
+
+    accuracy                           0.45      1324
+   macro avg       0.56      0.70      0.40      1324
+weighted avg       0.93      0.45      0.55      1324
+
+INFO:root:EER: 29.54%
+INFO:root:APCER: 0.00%
+INFO:root:BPCER: 59.08%
+INFO:root:EER FAKE: 29.54%
+INFO:root:BPCR(0.10 %) @ APCR = : 100.0, BPCR (1.00%) @ APCR =:100.0, BPCR (10.00%) @ APCR =: 6.862745098039216, BPCR (20.00%) @ APCR =:1.9607843137254901
+INFO:root:AUC@ROC: 0.9544582972305126, threshold:0.5, EER: 0.0784313725490196, APCER:0.0, BPCER:0.5908346972176759, ACER:0.29541734860883795
+INFO:root:
+
+
