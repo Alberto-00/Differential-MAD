@@ -398,7 +398,7 @@ if __name__ == '__main__':
     parser.add_argument("--test_csv_path", default="dataset/FRLL_test/csv_test_noSmile/test_morph_webmorph.csv", type=str, help="input path of test csv")
 
     parser.add_argument("--output_dir", default="output", type=str, help="path where trained model and test results will be saved")
-    parser.add_argument("--model_path", default="models/mixfacenet_SMDD_no_shuffle.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
+    parser.add_argument("--model_path", default="models/mixfacenet_SMDD_opencv.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
 
     parser.add_argument("--is_train", default=True, type=lambda x: (str(x).lower() in ['true', '1', 'yes']), help="train database or not")
     parser.add_argument("--is_test", default=True, type=lambda x: (str(x).lower() in ['true', '1', 'yes']), help="test database or not")

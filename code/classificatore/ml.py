@@ -138,7 +138,7 @@ def compute_eer(label, pred):
     return eer
 
 
-train = pd.read_csv('../output/feature_extraction/model_webmorph/merged_csv/train/train_merged.csv')
+train = pd.read_csv('../output/feature_extraction/model_webmorph/train/train.csv')
 
 x = train.drop(['image_path', "label"], axis=1)
 y = []
@@ -171,14 +171,14 @@ pca_values = pca.fit_transform(x)
 # model.fit(X_train_sel, y)
 
 # select the RabdomForest algorithm
-model = RandomForestClassifier()
+model = GaussianNB()
 model.fit(pca_values, y)
 
 # select the DecisionTree algorithm
 # model = DecisionTreeClassifier()
 # model.fit(X_train_sel, y)
 
-directory = '../output/feature_extraction/model_webmorph/merged_csv/test_smile'
+directory = '../output/feature_extraction/model_webmorph/test_noSmile'
 for filename in os.listdir(directory):
     if filename.endswith(".csv"):
         test = pd.read_csv(directory + '/' + filename)
@@ -199,7 +199,7 @@ for filename in os.listdir(directory):
         prediction = model.predict(X_test_sel)
         # prediction = grid_search.predict(x_test)
 
-        logging.basicConfig(filename='../output/pre-processing_pca/classificator_RandomForest/webmorph/merged/info_smile_webmorph.log', level=logging.INFO)
+        logging.basicConfig(filename='../output/pre-processing_pca/classificator_GaussianNB/webmorph/info_noSmile_webmorph.log', level=logging.INFO)
         logging.info(directory.split('/')[3] + '/' + filename)
         logging.info('The accuracy is: {:.2%}'.format(accuracy_score(prediction, y_test)))
         print(directory.split('/')[3] + '/' + filename)
