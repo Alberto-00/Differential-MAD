@@ -8,24 +8,24 @@ models = ['Amsl', 'Amsl', 'Amsl',
           'StyleGAN', 'StyleGAN', 'StyleGAN',
           'Webmorph', 'Webmorph', 'Webmorph']
 
-sub_categories = ['Tesisti', 'Nostri (not merged)', 'Nostri (merged)',
-                  'Tesisti', 'Nostri (not merged)', 'Nostri (merged)',
-                  'Tesisti', 'Nostri (not merged)', 'Nostri (merged)',
-                  'Tesisti', 'Nostri (not merged)', 'Nostri (merged)',
-                  'Tesisti', 'Nostri (not merged)', 'Nostri (merged)']
+sub_categories = ['Approccio Geometrico', 'AoM not Smile', 'AoM & Approccio Geometrico(not Smile)',
+                  'Approccio Geometrico', 'AoM not Smile', 'AoM & Approccio Geometrico(not Smile)',
+                  'Approccio Geometrico', 'AoM not Smile', 'AoM & Approccio Geometrico(not Smile)',
+                  'Approccio Geometrico', 'AoM not Smile', 'AoM & Approccio Geometrico(not Smile)',
+                  'Approccio Geometrico', 'AoM not Smile', 'AoM & Approccio Geometrico(not Smile)']
 
-sub_categories_smile = ['Tesisti', 'Nostri (not merged)', 'Nostri (Smile)',
-                        'Tesisti', 'Nostri (not merged)', 'Nostri (Smile)',
-                        'Tesisti', 'Nostri (not merged)', 'Nostri (Smile)',
-                        'Tesisti', 'Nostri (not merged)', 'Nostri (Smile)',
-                        'Tesisti', 'Nostri (not merged)', 'Nostri (Smile)']
+sub_categories_smile = ['Approccio Geometrico', 'AoM Smile', 'AoM & Approccio Geometrico(Smile)',
+                          'Approccio Geometrico', 'AoM Smile', 'AoM & Approccio Geometrico(Smile)',
+                          'Approccio Geometrico', 'AoM Smile', 'AoM & Approccio Geometrico(Smile)',
+                          'Approccio Geometrico', 'AoM Smile', 'AoM & Approccio Geometrico(Smile)',
+                          'Approccio Geometrico', 'AoM Smile', 'AoM & Approccio Geometrico(Smile)']
 
 # Accuracy - NO SMILE
-accuracy = [95.52, 98.32, 99.29,
-            98.18, 83.52, 98.72,
-            98.79, 88.29, 92.52,
-            98.71, 96.21, 97.05,
-            94.63, 91.16, 95.54]
+accuracy = [95.52, 95.54, 99.29,
+            98.18, 81.50, 98.72,
+            98.79, 84.14, 92.52,
+            98.71, 95.39, 97.05,
+            94.63, 88.67, 95.54]
 
 
 # Accuracy - SMILE
@@ -44,11 +44,11 @@ models_eer_paper = ['Amsl', 'Amsl',
                     'StyleGAN', 'StyleGAN',
                     'Webmorph', 'Webmorph']
 
-sub_categories_eer_paper = ['Nostri', 'Paper',
-                            'Nostri', 'Paper',
-                            'Nostri', 'Paper',
-                            'Nostri', 'Paper',
-                            'Nostri', 'Paper']
+sub_categories_eer_paper = ['AoM', 'Paper',
+                            'AoM', 'Paper',
+                            'AoM', 'Paper',
+                            'AoM', 'Paper',
+                            'AoM', 'Paper']
 
 eer_paper = [12.74, 15.18,
              0.49, 3.87,
@@ -137,7 +137,7 @@ bpcr20_smile = [48.52, 0, 0,
 #######################################################################################
 
 # Creazione del grafico a colonne con sottocategorie
-ax = sns.barplot(x=models, y=eer, hue=sub_categories,
+ax = sns.barplot(x=models, y=accuracy, hue=sub_categories,
             palette='pastel', saturation=0.7, alpha=0.8)
 
 # Aggiungi il valore sulle barre
