@@ -455,7 +455,7 @@ class MixNet(nn.Module):
         x = self.features(x)
         x=self.tail(x)
         x=self.feautre_layer(x)
-        print(x)
+
         # adding the following classification layer for morph attack detection
         x = self.pool1(x)
         x = x.view(x.size(0), -1)

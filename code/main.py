@@ -333,7 +333,7 @@ def main(args):
 
     # set 'args.is_train' to FALSE to skip training
     args.is_train = False
-    args.is_test = False
+    # args.is_test = False
 
     if args.is_train:
         train_dataset = FaceDataset(args.train_csv_path, is_train=True)
@@ -374,11 +374,11 @@ def main(args):
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
         test_prediction_scores, test_metrics = run_test(test_loader=test_loader, model=model, model_path=args.model_path)
         write_scores(args.test_csv_path, test_prediction_scores, test_output_path)
-        write_metrics("output/test_metrics_result.csv", args.model_path, "webmorph", test_metrics)
+        write_metrics("output/test_metrics_result_noSmile.csv", args.model_path, "webmorph", test_metrics)
 
         confusion_matrix_(args.test_csv_path, test_prediction_scores)
 
-    feature_extraction(model, args.model_path, args.train_csv_path)
+    # feature_extraction(model, args.model_path, args.train_csv_path)
 
 
 if __name__ == '__main__':
@@ -395,7 +395,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='MixFaceNet models')
     parser.add_argument("--train_csv_path", default="dataset/SMDD_train/train.csv", type=str, help="input path of train csv")
-    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/test_morph_webmorph.csv", type=str, help="input path of test csv")
+    parser.add_argument("--test_csv_path", default="dataset/FRLL_test/csv_test_noSmile/test_morph_webmorph.csv", type=str, help="input path of test csv")
 
     parser.add_argument("--output_dir", default="output", type=str, help="path where trained model and test results will be saved")
     parser.add_argument("--model_path", default="models/mixfacenet_SMDD_no_shuffle.pth", type=str, help="path where trained model will be saved or location of pretrained weight")
