@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="350px" src="./assets/facial-recognition.png">
+  <img width="280px" src="./assets/facial-recognition.png">
 </p>
 <p align="center" dir="auto">
   <img align="middle" width="32px" src="./assets/face-scan.png"/> 
