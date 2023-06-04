@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400px" src="./assets/facial-recognition.png">
+  <img width="350px" src="./assets/facial-recognition.png">
 </p>
 <p align="center" dir="auto">
   <img align="middle" width="32px" src="./assets/face-scan.png"/> 
@@ -48,9 +48,10 @@
   Documentation
 </h2>
 <ul dir="auto">
-<li>Our paper can be found in <code>paper</code> directory at the following link: <a href="/paper/paper analizzato.pdf" rel="nofollow">Paper Differential-MAD</a></li>
-<li>The paper analyzed can be found in <code>paper</code> directory at the following link: <a href="/paper/paper analizzato.pdf" rel="nofollow">Privacy-friendly Synthetic Data for the Development of Face MAD</a></li>
-<li>MixNet paper can be found in <code>paper</code> directory at the following link: <a href="./paper/MixNet-paper.pdf" rel="nofollow">MixNet</a>.</li>
+<li>Our paper can be found in <code>paper</code> directory at the following link: <a href="/paper/paper analizzato.pdf" rel="nofollow">Paper Differential-MAD</a></li><br>
+<li>The paper analyzed can be found in <code>paper</code> directory at the following link: <a href="/paper/paper analizzato.pdf" rel="nofollow">
+  <br>Privacy-friendly Synthetic Data for the Development of Face MAD</a></li><br>
+<li>MixNet paper can be found in <code>paper</code> directory at the following link: <a href="./paper/MixNet-paper.pdf" rel="nofollow">MixNet</a>.</li><br>
 <li>Statistics graphics can be found in <code>code/graphics</code> directory at the following link: <a href="./code/graphics" rel="nofollow">Statistics graphics</a>.</li>
 </ul>
 <h1 dir="auto">
