@@ -137,7 +137,7 @@ bpcr20_smile = [48.52, 1.47, 5.88,
 #######################################################################################
 
 # Creazione del grafico a colonne con sottocategorie
-ax = sns.barplot(x=models, y=bpcr20_smile, hue=sub_categories_smile,
+ax = sns.barplot(x=models_eer_paper, y=eer_paper, hue=sub_categories_eer_paper,
                  palette='pastel', saturation=0.7, alpha=0.8)
 
 # Aggiungi il valore sulle barre
@@ -151,8 +151,8 @@ fig.set_size_inches(15, 11)
 
 # Aggiunta di etichette
 plt.xlabel('Tests', fontsize=20)
-plt.ylabel('BPCER (20.00%) @ APCER (%)', fontsize=20)
-plt.title("BPCER (20.00%) @ APCER (con 'smile')", fontsize=20)
+plt.ylabel('EER (%)', fontsize=20)
+plt.title("Equal Error Rate (EER)", fontsize=20)
 
 # Modifica della grandezza delle colonne
 plt.xticks(fontsize=16)
