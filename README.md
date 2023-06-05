@@ -48,7 +48,7 @@
   Documentation
 </h2>
 <ul dir="auto">
-<li>Our paper can be found in <code>paper</code> directory at the following link: <a href="/paper/paper analizzato.pdf" rel="nofollow">Paper Differential-MAD</a></li><br>
+<li>Our paper can be found in <code>paper</code> directory at the following link: <a href="/paper/paper_FVAB.pdf" rel="nofollow">Paper Differential-MAD</a></li><br>
 <li>The paper analyzed can be found in <code>paper</code> directory at the following link: <a href="/paper/paper analizzato.pdf" rel="nofollow">
   <br>Privacy-friendly Synthetic Data for the Development of Face MAD</a></li><br>
 <li>MixNet paper can be found in <code>paper</code> directory at the following link: <a href="./paper/MixNet-paper.pdf" rel="nofollow">MixNet</a>.</li><br>
