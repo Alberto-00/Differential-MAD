@@ -378,7 +378,7 @@ def main(args):
 
         confusion_matrix_(args.test_csv_path, test_prediction_scores)
 
-    # feature_extraction(model, args.model_path, args.train_csv_path)
+    feature_extraction(model, args.model_path, args.train_csv_path)
 
 
 if __name__ == '__main__':
