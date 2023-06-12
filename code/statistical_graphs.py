@@ -3,18 +3,16 @@ import matplotlib.pyplot as plt
 
 #######################################################################################
 models = ['Amsl', 'Amsl', 'Amsl', 'Amsl',
-          'Facemorpher',  'Facemorpher', 'Facemorpher', 'Facemorpher',
+          'Facemorpher', 'Facemorpher', 'Facemorpher', 'Facemorpher',
           'OpenCV', 'OpenCV', 'OpenCV', 'OpenCV',
           'StyleGAN', 'StyleGAN', 'StyleGAN', 'StyleGAN',
           'Webmorph', 'Webmorph', 'Webmorph', 'Webmorph']
-
-
 
 sub_categories_no_smile = ['Paper', 'Approccio Geometrico (not Smile)', 'AoM not Smile',
                            'AoM & Approccio Geometrico (not Smile)',
                            'Paper', 'Approccio Geometrico (not Smile)', 'AoM not Smile',
                            'AoM & Approccio Geometrico (not Smile)',
-                           'Paper','Approccio Geometrico (not Smile)', 'AoM not Smile',
+                           'Paper', 'Approccio Geometrico (not Smile)', 'AoM not Smile',
                            'AoM & Approccio Geometrico (not Smile)',
                            'Paper', 'Approccio Geometrico (not Smile)', 'AoM not Smile',
                            'AoM & Approccio Geometrico (not Smile)',
@@ -140,17 +138,16 @@ bpcr20_smile = [48.52, 1.47, 5.88,
 
 # *********  Validation *********************
 models_v = ['Amsl', 'Amsl', 'Amsl', 'Amsl', 'Amsl',
-           'Facemorpher', 'Facemorpher',  'Facemorpher', 'Facemorpher', 'Facemorpher',
-          'OpenCV', 'OpenCV', 'OpenCV', 'OpenCV', 'OpenCV',
-          'StyleGAN', 'StyleGAN', 'StyleGAN', 'StyleGAN', 'StyleGAN',
-          'Webmorph', 'Webmorph', 'Webmorph', 'Webmorph', 'Webmorph']
+            'Facemorpher', 'Facemorpher', 'Facemorpher', 'Facemorpher', 'Facemorpher',
+            'OpenCV', 'OpenCV', 'OpenCV', 'OpenCV', 'OpenCV',
+            'StyleGAN', 'StyleGAN', 'StyleGAN', 'StyleGAN', 'StyleGAN',
+            'Webmorph', 'Webmorph', 'Webmorph', 'Webmorph', 'Webmorph']
 
-lines_name_v = ['Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN','Webmorph',
-                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN','Webmorph',
-                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN','Webmorph',
-                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN','Webmorph',
-                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN','Webmorph']
-
+lines_name_v = ['Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN', 'Webmorph',
+                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN', 'Webmorph',
+                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN', 'Webmorph',
+                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN', 'Webmorph',
+                'Amsl', 'Facemorpher', 'OpenCV', 'StyleGAN', 'Webmorph']
 
 eer_validation_smile = [42.46, 50, 50, 49.51, 49.91,
                         0.98, 9.62, 10.64, 3.64, 6.26,
@@ -163,6 +160,8 @@ eer_validation_no_smile = [43.17, 50, 50, 49.53, 49.91,
                            3.38, 25.10, 25.79, 11.11, 17.09,
                            16.16, 35.84, 35.35, 25.53, 29.54,
                            41.15, 49.96, 49.96, 50.04, 49.84]
+
+#######################################################################################
 
 # Creazione del grafico a colonne con sottocategorie
 ax = sns.barplot(x=models, y=eer_no_smile, hue=sub_categories_no_smile,
@@ -188,27 +187,6 @@ plt.yticks(fontsize=16)
 
 # Posiziona la leggenda fuori dal grafico
 plt.legend(loc="upper right", bbox_to_anchor=(1.0, 1.16), fontsize=12)
-
-# Visualizzazione del grafico
-plt.show()
-
-
-sns.lineplot(x=models_v, y=eer_validation_no_smile, hue=lines_name_v)
-# Grandezza grafico
-fig = plt.gcf()
-fig.set_size_inches(15, 11)
-
-# Aggiunta di etichette
-plt.xlabel('Validation', fontsize=20)
-plt.ylabel('EER (%)', fontsize=20)
-plt.title("EER a variare del Validation (no_smile)", fontsize=20)
-
-# Modifica della grandezza delle colonne
-plt.xticks(fontsize=16)
-plt.yticks(fontsize=16)
-
-# Posiziona la leggenda fuori dal grafico
-plt.legend(loc="upper right", bbox_to_anchor=(1.0, 1.19), fontsize=12)
 
 # Visualizzazione del grafico
 plt.show()

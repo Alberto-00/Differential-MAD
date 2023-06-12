@@ -159,16 +159,9 @@ from sklearn.decomposition import PCA
 pca = PCA(n_components='mle', copy=True)
 pca_values = pca.fit_transform(x)
 
-#model = GaussianNB()
-# model.fit(pca_values, y)
-
-# sel = VarianceThreshold(threshold=0.017)
-
-# X_train_sel = sel.fit_transform(x)
-
 # select the GaussianNB algorithm
 # model = GaussianNB()
-# model.fit(X_train_sel, y)
+# model.fit(pca_values, y)
 
 # select the RabdomForest algorithm
 model = GaussianNB()
@@ -176,7 +169,7 @@ model.fit(pca_values, y)
 
 # select the DecisionTree algorithm
 # model = DecisionTreeClassifier()
-# model.fit(X_train_sel, y)
+# model.fit(pca_values, y)
 
 directory = '../output/feature_extraction/model_webmorph/test_noSmile'
 for filename in os.listdir(directory):
