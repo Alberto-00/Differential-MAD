@@ -179,7 +179,7 @@ fig.set_size_inches(15, 11)
 # Aggiunta di etichette
 plt.xlabel('Tests', fontsize=20)
 plt.ylabel('EER (%)', fontsize=20)
-plt.title("Equal Error Rate(no 'smile')", fontsize=20)
+plt.title("Equal Error Rate('smile')", fontsize=20)
 
 # Modifica della grandezza delle colonne
 plt.xticks(fontsize=16)
@@ -187,6 +187,28 @@ plt.yticks(fontsize=16)
 
 # Posiziona la leggenda fuori dal grafico
 plt.legend(loc="upper right", bbox_to_anchor=(1.0, 1.16), fontsize=12)
+
+# Visualizzazione del grafico
+plt.show()
+
+
+
+sns.lineplot(x=models_v, y=eer_validation_smile, hue=lines_name_v)
+# Grandezza grafico
+fig = plt.gcf()
+fig.set_size_inches(15, 11)
+
+# Aggiunta di etichette
+plt.xlabel('Validation', fontsize=20)
+plt.ylabel('EER (%)', fontsize=20)
+plt.title("EER a variare del Validation (smile)", fontsize=20)
+
+# Modifica della grandezza delle colonne
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+# Posiziona la leggenda fuori dal grafico
+plt.legend(loc="upper right", bbox_to_anchor=(1.13, 1.15), fontsize=12)
 
 # Visualizzazione del grafico
 plt.show()
